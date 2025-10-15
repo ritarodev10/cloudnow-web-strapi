@@ -1,0 +1,95 @@
+{
+  "collectionName": "components_shared_logo_links",
+  "info": {
+    "displayName": "Logo Link"
+  },
+  "options": {},
+  "attributes": {
+    "href": {
+      "type": "string"
+    },
+    "alt": {
+      "type": "string",
+      "required": true
+    },
+    "src": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "srcMobile": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "srcTablet": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "width": {
+      "type": "integer",
+      "min": 1,
+      "max": 1000
+    },
+    "height": {
+      "type": "integer",
+      "min": 1,
+      "max": 1000
+    },
+    "aspectRatio": {
+      "type": "enumeration",
+      "enum": ["square", "16:9", "4:3", "3:2", "free"],
+      "default": "free"
+    },
+    "isExternal": {
+      "type": "boolean",
+      "default": false
+    },
+    "target": {
+      "type": "enumeration",
+      "enum": ["_self", "_blank"],
+      "default": "_self"
+    },
+    "rel": {
+      "type": "enumeration",
+      "enum": ["nofollow", "noopener", "noreferrer"],
+      "default": "noopener"
+    },
+    "ariaLabel": {
+      "type": "string"
+    },
+    "className": {
+      "type": "string"
+    },
+    "style": {
+      "type": "enumeration",
+      "enum": ["default", "dark", "light", "monochrome"],
+      "default": "default"
+    },
+    "hoverEffect": {
+      "type": "enumeration",
+      "enum": ["none", "scale", "fade", "slide"],
+      "default": "none"
+    },
+    "animation": {
+      "type": "enumeration",
+      "enum": ["none", "fadeIn", "slideUp", "bounce"],
+      "default": "none"
+    },
+    "showOnMobile": {
+      "type": "boolean",
+      "default": true
+    },
+    "showOnTablet": {
+      "type": "boolean",
+      "default": true
+    },
+    "showOnDesktop": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "config": {}
+}
