@@ -1,0 +1,44 @@
+{
+  "collectionName": "components_content_footer_offices",
+  "info": {
+    "displayName": "Footer Offices"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Our Offices"
+    },
+    "offices": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content.office-location"
+    },
+    "contactInfo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "content.contact-info"
+    },
+    "showTitle": {
+      "type": "boolean",
+      "default": true
+    },
+    "showOffices": {
+      "type": "boolean",
+      "default": true
+    },
+    "showContactInfo": {
+      "type": "boolean",
+      "default": true
+    },
+    "textColor": {
+      "type": "enumeration",
+      "enum": ["light", "dark", "primary"],
+      "default": "light"
+    },
+    "className": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

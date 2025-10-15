@@ -1,0 +1,67 @@
+{
+  "collectionName": "components_navigation_logos",
+  "info": {
+    "displayName": "Logo"
+  },
+  "options": {},
+  "attributes": {
+    "href": {
+      "type": "string",
+      "default": "/"
+    },
+    "companyName": {
+      "type": "string",
+      "required": true,
+      "default": "CLOUD NOW"
+    },
+    "logoImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "cloudIcon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "showText": {
+      "type": "boolean",
+      "default": true
+    },
+    "showIcon": {
+      "type": "boolean",
+      "default": true
+    },
+    "textColor": {
+      "type": "enumeration",
+      "enum": ["light", "dark", "primary", "white"],
+      "default": "light"
+    },
+    "iconPosition": {
+      "type": "enumeration",
+      "enum": ["left", "right"],
+      "default": "right"
+    },
+    "size": {
+      "type": "enumeration",
+      "enum": ["small", "medium", "large"],
+      "default": "medium"
+    },
+    "isExternal": {
+      "type": "boolean",
+      "default": false
+    },
+    "target": {
+      "type": "enumeration",
+      "enum": ["_self", "_blank"],
+      "default": "_self"
+    },
+    "ariaLabel": {
+      "type": "string"
+    },
+    "className": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

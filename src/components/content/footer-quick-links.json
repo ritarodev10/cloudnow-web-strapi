@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_content_footer_quick_links",
+  "info": {
+    "displayName": "Footer Quick Links"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Quick Links"
+    },
+    "links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link"
+    },
+    "showTitle": {
+      "type": "boolean",
+      "default": true
+    },
+    "showLinks": {
+      "type": "boolean",
+      "default": true
+    },
+    "textColor": {
+      "type": "enumeration",
+      "enum": ["light", "dark", "primary"],
+      "default": "light"
+    },
+    "className": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

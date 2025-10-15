@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_content_office_locations",
+  "info": {
+    "displayName": "Office Location"
+  },
+  "options": {},
+  "attributes": {
+    "country": {
+      "type": "string",
+      "required": true
+    },
+    "address": {
+      "type": "text",
+      "required": true
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "showIcon": {
+      "type": "boolean",
+      "default": true
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true
+    },
+    "className": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

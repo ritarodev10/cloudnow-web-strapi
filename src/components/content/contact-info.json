@@ -1,0 +1,45 @@
+{
+  "collectionName": "components_content_contact_infos",
+  "info": {
+    "displayName": "Contact Info"
+  },
+  "options": {},
+  "attributes": {
+    "phoneNumbers": {
+      "type": "component",
+      "repeatable": true,
+      "component": "forms.contact-item"
+    },
+    "email": {
+      "type": "component",
+      "repeatable": false,
+      "component": "forms.contact-item"
+    },
+    "socialLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "forms.contact-item"
+    },
+    "showPhoneNumbers": {
+      "type": "boolean",
+      "default": true
+    },
+    "showEmail": {
+      "type": "boolean",
+      "default": true
+    },
+    "showSocialLinks": {
+      "type": "boolean",
+      "default": true
+    },
+    "textColor": {
+      "type": "enumeration",
+      "enum": ["light", "dark", "primary"],
+      "default": "light"
+    },
+    "className": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

@@ -1,0 +1,70 @@
+{
+  "collectionName": "components_sections_footers",
+  "info": {
+    "displayName": "Footer"
+  },
+  "options": {},
+  "attributes": {
+    "companyInfo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "content.footer-company-info"
+    },
+    "offices": {
+      "type": "component",
+      "repeatable": false,
+      "component": "content.footer-offices"
+    },
+    "quickLinks": {
+      "type": "component",
+      "repeatable": false,
+      "component": "content.footer-quick-links"
+    },
+    "newsletter": {
+      "type": "component",
+      "repeatable": false,
+      "component": "forms.footer-newsletter"
+    },
+    "bottomBar": {
+      "type": "component",
+      "repeatable": false,
+      "component": "content.footer-bottom-bar"
+    },
+    "backgroundColor": {
+      "type": "enumeration",
+      "enum": ["dark-blue", "dark", "light", "primary"],
+      "default": "dark-blue"
+    },
+    "textColor": {
+      "type": "enumeration",
+      "enum": ["light", "dark", "primary"],
+      "default": "light"
+    },
+    "padding": {
+      "type": "enumeration",
+      "enum": ["small", "medium", "large"],
+      "default": "large"
+    },
+    "maxWidth": {
+      "type": "enumeration",
+      "enum": ["full", "container", "wide"],
+      "default": "container"
+    },
+    "showOnMobile": {
+      "type": "boolean",
+      "default": true
+    },
+    "showOnTablet": {
+      "type": "boolean",
+      "default": true
+    },
+    "showOnDesktop": {
+      "type": "boolean",
+      "default": true
+    },
+    "className": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

@@ -1,0 +1,47 @@
+{
+  "collectionName": "components_forms_contact_items",
+  "info": {
+    "displayName": "Contact Item"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "value": {
+      "type": "string",
+      "required": true
+    },
+    "href": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "iconType": {
+      "type": "enumeration",
+      "enum": ["phone", "email", "linkedin", "location", "custom"],
+      "default": "custom"
+    },
+    "isExternal": {
+      "type": "boolean",
+      "default": false
+    },
+    "target": {
+      "type": "enumeration",
+      "enum": ["_self", "_blank"],
+      "default": "_self"
+    },
+    "showIcon": {
+      "type": "boolean",
+      "default": true
+    },
+    "className": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

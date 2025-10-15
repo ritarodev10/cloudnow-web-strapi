@@ -1,0 +1,68 @@
+{
+  "collectionName": "components_sections_headers",
+  "info": {
+    "displayName": "Header"
+  },
+  "options": {},
+  "attributes": {
+    "logo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "navigation.logo"
+    },
+    "navigation": {
+      "type": "component",
+      "repeatable": true,
+      "component": "navigation.navigation-item"
+    },
+    "ctaButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.link"
+    },
+    "isSticky": {
+      "type": "boolean",
+      "default": true
+    },
+    "isTransparent": {
+      "type": "boolean",
+      "default": true
+    },
+    "backgroundColor": {
+      "type": "enumeration",
+      "enum": ["transparent", "dark", "light", "primary"],
+      "default": "transparent"
+    },
+    "textColor": {
+      "type": "enumeration",
+      "enum": ["light", "dark", "primary"],
+      "default": "light"
+    },
+    "padding": {
+      "type": "enumeration",
+      "enum": ["small", "medium", "large"],
+      "default": "medium"
+    },
+    "maxWidth": {
+      "type": "enumeration",
+      "enum": ["full", "container", "wide"],
+      "default": "container"
+    },
+    "showOnMobile": {
+      "type": "boolean",
+      "default": true
+    },
+    "showOnTablet": {
+      "type": "boolean",
+      "default": true
+    },
+    "showOnDesktop": {
+      "type": "boolean",
+      "default": true
+    },
+    "className": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

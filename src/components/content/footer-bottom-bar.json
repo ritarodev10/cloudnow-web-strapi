@@ -1,0 +1,42 @@
+{
+  "collectionName": "components_content_footer_bottom_bars",
+  "info": {
+    "displayName": "Footer Bottom Bar"
+  },
+  "options": {},
+  "attributes": {
+    "links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link"
+    },
+    "showSeparator": {
+      "type": "boolean",
+      "default": true
+    },
+    "separatorColor": {
+      "type": "enumeration",
+      "enum": ["light", "dark", "primary", "gray"],
+      "default": "gray"
+    },
+    "backgroundColor": {
+      "type": "enumeration",
+      "enum": ["transparent", "dark", "light", "primary"],
+      "default": "transparent"
+    },
+    "textColor": {
+      "type": "enumeration",
+      "enum": ["light", "dark", "primary"],
+      "default": "light"
+    },
+    "padding": {
+      "type": "enumeration",
+      "enum": ["small", "medium", "large"],
+      "default": "small"
+    },
+    "className": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

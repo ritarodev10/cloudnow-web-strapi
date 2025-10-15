@@ -1,0 +1,43 @@
+{
+  "collectionName": "components_content_footer_company_infos",
+  "info": {
+    "displayName": "Footer Company Info"
+  },
+  "options": {},
+  "attributes": {
+    "logo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "navigation.logo"
+    },
+    "description": {
+      "type": "text",
+      "default": "Specialized IT consulting and cloud services customized to meet your business demands and security needs."
+    },
+    "copyright": {
+      "type": "string",
+      "default": "© 2025 CloudNow. All rights reserved."
+    },
+    "showLogo": {
+      "type": "boolean",
+      "default": true
+    },
+    "showDescription": {
+      "type": "boolean",
+      "default": true
+    },
+    "showCopyright": {
+      "type": "boolean",
+      "default": true
+    },
+    "textColor": {
+      "type": "enumeration",
+      "enum": ["light", "dark", "primary"],
+      "default": "light"
+    },
+    "className": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

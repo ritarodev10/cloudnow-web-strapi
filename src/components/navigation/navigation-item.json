@@ -1,0 +1,55 @@
+{
+  "collectionName": "components_navigation_navigation_items",
+  "info": {
+    "displayName": "Navigation Item"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "href": {
+      "type": "string"
+    },
+    "isExternal": {
+      "type": "boolean",
+      "default": false
+    },
+    "target": {
+      "type": "enumeration",
+      "enum": ["_self", "_blank"],
+      "default": "_self"
+    },
+    "hasDropdown": {
+      "type": "boolean",
+      "default": false
+    },
+    "dropdownItems": {
+      "type": "component",
+      "repeatable": true,
+      "component": "navigation.navigation-item"
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "iconPosition": {
+      "type": "enumeration",
+      "enum": ["left", "right", "none"],
+      "default": "none"
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": false
+    },
+    "ariaLabel": {
+      "type": "string"
+    },
+    "className": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

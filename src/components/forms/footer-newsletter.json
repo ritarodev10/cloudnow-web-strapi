@@ -1,0 +1,60 @@
+{
+  "collectionName": "components_forms_footer_newsletters",
+  "info": {
+    "displayName": "Footer Newsletter"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Subscribe"
+    },
+    "description": {
+      "type": "text",
+      "default": "Join our newsletter to stay up to date on features and releases."
+    },
+    "placeholder": {
+      "type": "string",
+      "default": "Enter your email"
+    },
+    "buttonText": {
+      "type": "string",
+      "default": "Subscribe"
+    },
+    "privacyText": {
+      "type": "text",
+      "default": "By subscribing you agree to with our Privacy Policy and provide consent to receive updates from our company."
+    },
+    "showTitle": {
+      "type": "boolean",
+      "default": true
+    },
+    "showDescription": {
+      "type": "boolean",
+      "default": true
+    },
+    "showPrivacyText": {
+      "type": "boolean",
+      "default": true
+    },
+    "buttonType": {
+      "type": "enumeration",
+      "enum": ["primary", "secondary", "outline"],
+      "default": "primary"
+    },
+    "buttonSize": {
+      "type": "enumeration",
+      "enum": ["small", "medium", "large"],
+      "default": "medium"
+    },
+    "textColor": {
+      "type": "enumeration",
+      "enum": ["light", "dark", "primary"],
+      "default": "light"
+    },
+    "className": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}
