@@ -1,7 +1,7 @@
 {
-  "collectionName": "components_navigation_navigation_items",
+  "collectionName": "components_navigation_dropdown_items",
   "info": {
-    "displayName": "Navigation Item"
+    "displayName": "Dropdown Item"
   },
   "options": {},
   "attributes": {
@@ -20,15 +20,6 @@
       "type": "enumeration",
       "enum": ["_self", "_blank"],
       "default": "_self"
-    },
-    "hasDropdown": {
-      "type": "boolean",
-      "default": false
-    },
-    "dropdownItems": {
-      "type": "component",
-      "repeatable": true,
-      "component": "navigation.dropdown-item"
     },
     "icon": {
       "type": "media",
