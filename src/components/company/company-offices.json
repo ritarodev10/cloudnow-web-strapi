@@ -1,34 +1,33 @@
 {
-  "collectionName": "components_content_contact_infos",
+  "collectionName": "components_company_company_offices",
   "info": {
-    "displayName": "Contact Info"
+    "displayName": "Company Offices"
   },
   "options": {},
   "attributes": {
-    "phoneNumbers": {
+    "title": {
+      "type": "string",
+      "default": "Our Offices"
+    },
+    "offices": {
       "type": "component",
       "repeatable": true,
-      "component": "forms.contact-item"
+      "component": "company.office-location"
     },
-    "email": {
+    "contactInfo": {
       "type": "component",
       "repeatable": false,
-      "component": "forms.contact-item"
+      "component": "company.company-contact"
     },
-    "socialLinks": {
-      "type": "component",
-      "repeatable": true,
-      "component": "forms.contact-item"
-    },
-    "showPhoneNumbers": {
+    "showTitle": {
       "type": "boolean",
       "default": true
     },
-    "showEmail": {
+    "showOffices": {
       "type": "boolean",
       "default": true
     },
-    "showSocialLinks": {
+    "showContactInfo": {
       "type": "boolean",
       "default": true
     },

@@ -1,7 +1,7 @@
 {
-  "collectionName": "components_forms_footer_newsletters",
+  "collectionName": "components_forms_newsletter_signups",
   "info": {
-    "displayName": "Footer Newsletter"
+    "displayName": "Newsletter Signup"
   },
   "options": {},
   "attributes": {

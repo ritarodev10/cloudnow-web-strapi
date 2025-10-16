@@ -1,5 +1,5 @@
 {
-  "collectionName": "components_sections_headers",
+  "collectionName": "components_layout_headers",
   "info": {
     "displayName": "Header"
   },
@@ -8,7 +8,7 @@
     "logo": {
       "type": "component",
       "repeatable": false,
-      "component": "navigation.logo"
+      "component": "company.company-logo"
     },
     "navigation": {
       "type": "component",

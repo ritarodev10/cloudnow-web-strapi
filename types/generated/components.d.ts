@@ -1,29 +1,114 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
-export interface ContentContactInfo extends Struct.ComponentSchema {
-  collectionName: 'components_content_contact_infos';
+export interface CompanyCompanyContact extends Struct.ComponentSchema {
+  collectionName: 'components_company_company_contacts';
   info: {
-    displayName: 'Contact Info';
+    displayName: 'Company Contact';
   };
   attributes: {
     className: Schema.Attribute.String;
-    email: Schema.Attribute.Component<'forms.contact-item', false>;
-    phoneNumbers: Schema.Attribute.Component<'forms.contact-item', true>;
+    email: Schema.Attribute.Component<'forms.contact-form-item', false>;
+    phoneNumbers: Schema.Attribute.Component<'forms.contact-form-item', true>;
     showEmail: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     showPhoneNumbers: Schema.Attribute.Boolean &
       Schema.Attribute.DefaultTo<true>;
     showSocialLinks: Schema.Attribute.Boolean &
       Schema.Attribute.DefaultTo<true>;
-    socialLinks: Schema.Attribute.Component<'forms.contact-item', true>;
+    socialLinks: Schema.Attribute.Component<'forms.contact-form-item', true>;
     textColor: Schema.Attribute.Enumeration<['light', 'dark', 'primary']> &
       Schema.Attribute.DefaultTo<'light'>;
   };
 }
 
-export interface ContentFooterBottomBar extends Struct.ComponentSchema {
-  collectionName: 'components_content_footer_bottom_bars';
+export interface CompanyCompanyInfo extends Struct.ComponentSchema {
+  collectionName: 'components_company_company_infos';
   info: {
-    displayName: 'Footer Bottom Bar';
+    displayName: 'Company Info';
+  };
+  attributes: {
+    className: Schema.Attribute.String;
+    copyright: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'\u00A9 2025 CloudNow. All rights reserved.'>;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.DefaultTo<'Specialized IT consulting and cloud services customized to meet your business demands and security needs.'>;
+    logo: Schema.Attribute.Component<'company.company-logo', false>;
+    showCopyright: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    showDescription: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<true>;
+    showLogo: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    textColor: Schema.Attribute.Enumeration<['light', 'dark', 'primary']> &
+      Schema.Attribute.DefaultTo<'light'>;
+  };
+}
+
+export interface CompanyCompanyLogo extends Struct.ComponentSchema {
+  collectionName: 'components_company_company_logos';
+  info: {
+    displayName: 'Company Logo';
+  };
+  attributes: {
+    ariaLabel: Schema.Attribute.String;
+    className: Schema.Attribute.String;
+    cloudIcon: Schema.Attribute.Media<'images'>;
+    companyName: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'CLOUD NOW'>;
+    href: Schema.Attribute.String & Schema.Attribute.DefaultTo<'/'>;
+    iconPosition: Schema.Attribute.Enumeration<['left', 'right']> &
+      Schema.Attribute.DefaultTo<'right'>;
+    isExternal: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    logoImage: Schema.Attribute.Media<'images'>;
+    showIcon: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    showText: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    size: Schema.Attribute.Enumeration<['small', 'medium', 'large']> &
+      Schema.Attribute.DefaultTo<'medium'>;
+    target: Schema.Attribute.Enumeration<['_self', '_blank']> &
+      Schema.Attribute.DefaultTo<'_self'>;
+    textColor: Schema.Attribute.Enumeration<
+      ['light', 'dark', 'primary', 'white']
+    > &
+      Schema.Attribute.DefaultTo<'light'>;
+  };
+}
+
+export interface CompanyCompanyOffices extends Struct.ComponentSchema {
+  collectionName: 'components_company_company_offices';
+  info: {
+    displayName: 'Company Offices';
+  };
+  attributes: {
+    className: Schema.Attribute.String;
+    contactInfo: Schema.Attribute.Component<'company.company-contact', false>;
+    offices: Schema.Attribute.Component<'company.office-location', true>;
+    showContactInfo: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<true>;
+    showOffices: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    showTitle: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    textColor: Schema.Attribute.Enumeration<['light', 'dark', 'primary']> &
+      Schema.Attribute.DefaultTo<'light'>;
+    title: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Our Offices'>;
+  };
+}
+
+export interface CompanyOfficeLocation extends Struct.ComponentSchema {
+  collectionName: 'components_company_office_locations';
+  info: {
+    displayName: 'Office Location';
+  };
+  attributes: {
+    address: Schema.Attribute.Text & Schema.Attribute.Required;
+    className: Schema.Attribute.String;
+    country: Schema.Attribute.String & Schema.Attribute.Required;
+    icon: Schema.Attribute.Media<'images'>;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    showIcon: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+  };
+}
+
+export interface ContentLegalLinks extends Struct.ComponentSchema {
+  collectionName: 'components_content_legal_links';
+  info: {
+    displayName: 'Legal Links';
   };
   attributes: {
     backgroundColor: Schema.Attribute.Enumeration<
@@ -44,81 +129,10 @@ export interface ContentFooterBottomBar extends Struct.ComponentSchema {
   };
 }
 
-export interface ContentFooterCompanyInfo extends Struct.ComponentSchema {
-  collectionName: 'components_content_footer_company_infos';
+export interface FormsContactFormItem extends Struct.ComponentSchema {
+  collectionName: 'components_forms_contact_form_items';
   info: {
-    displayName: 'Footer Company Info';
-  };
-  attributes: {
-    className: Schema.Attribute.String;
-    copyright: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'\u00A9 2025 CloudNow. All rights reserved.'>;
-    description: Schema.Attribute.Text &
-      Schema.Attribute.DefaultTo<'Specialized IT consulting and cloud services customized to meet your business demands and security needs.'>;
-    logo: Schema.Attribute.Component<'navigation.logo', false>;
-    showCopyright: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    showDescription: Schema.Attribute.Boolean &
-      Schema.Attribute.DefaultTo<true>;
-    showLogo: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    textColor: Schema.Attribute.Enumeration<['light', 'dark', 'primary']> &
-      Schema.Attribute.DefaultTo<'light'>;
-  };
-}
-
-export interface ContentFooterOffices extends Struct.ComponentSchema {
-  collectionName: 'components_content_footer_offices';
-  info: {
-    displayName: 'Footer Offices';
-  };
-  attributes: {
-    className: Schema.Attribute.String;
-    contactInfo: Schema.Attribute.Component<'content.contact-info', false>;
-    offices: Schema.Attribute.Component<'content.office-location', true>;
-    showContactInfo: Schema.Attribute.Boolean &
-      Schema.Attribute.DefaultTo<true>;
-    showOffices: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    showTitle: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    textColor: Schema.Attribute.Enumeration<['light', 'dark', 'primary']> &
-      Schema.Attribute.DefaultTo<'light'>;
-    title: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Our Offices'>;
-  };
-}
-
-export interface ContentFooterQuickLinks extends Struct.ComponentSchema {
-  collectionName: 'components_content_footer_quick_links';
-  info: {
-    displayName: 'Footer Quick Links';
-  };
-  attributes: {
-    className: Schema.Attribute.String;
-    links: Schema.Attribute.Component<'shared.link', true>;
-    showLinks: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    showTitle: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    textColor: Schema.Attribute.Enumeration<['light', 'dark', 'primary']> &
-      Schema.Attribute.DefaultTo<'light'>;
-    title: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Quick Links'>;
-  };
-}
-
-export interface ContentOfficeLocation extends Struct.ComponentSchema {
-  collectionName: 'components_content_office_locations';
-  info: {
-    displayName: 'Office Location';
-  };
-  attributes: {
-    address: Schema.Attribute.Text & Schema.Attribute.Required;
-    className: Schema.Attribute.String;
-    country: Schema.Attribute.String & Schema.Attribute.Required;
-    icon: Schema.Attribute.Media<'images'>;
-    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    showIcon: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-  };
-}
-
-export interface FormsContactItem extends Struct.ComponentSchema {
-  collectionName: 'components_forms_contact_items';
-  info: {
-    displayName: 'Contact Item';
+    displayName: 'Contact Form Item';
   };
   attributes: {
     className: Schema.Attribute.String;
@@ -137,10 +151,10 @@ export interface FormsContactItem extends Struct.ComponentSchema {
   };
 }
 
-export interface FormsFooterNewsletter extends Struct.ComponentSchema {
-  collectionName: 'components_forms_footer_newsletters';
+export interface FormsNewsletterSignup extends Struct.ComponentSchema {
+  collectionName: 'components_forms_newsletter_signups';
   info: {
-    displayName: 'Footer Newsletter';
+    displayName: 'Newsletter Signup';
   };
   attributes: {
     buttonSize: Schema.Attribute.Enumeration<['small', 'medium', 'large']> &
@@ -169,32 +183,58 @@ export interface FormsFooterNewsletter extends Struct.ComponentSchema {
   };
 }
 
-export interface NavigationLogo extends Struct.ComponentSchema {
-  collectionName: 'components_navigation_logos';
+export interface LayoutFooter extends Struct.ComponentSchema {
+  collectionName: 'components_layout_footers';
   info: {
-    displayName: 'Logo';
+    displayName: 'Footer';
   };
   attributes: {
-    ariaLabel: Schema.Attribute.String;
-    className: Schema.Attribute.String;
-    cloudIcon: Schema.Attribute.Media<'images'>;
-    companyName: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'CLOUD NOW'>;
-    href: Schema.Attribute.String & Schema.Attribute.DefaultTo<'/'>;
-    iconPosition: Schema.Attribute.Enumeration<['left', 'right']> &
-      Schema.Attribute.DefaultTo<'right'>;
-    isExternal: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    logoImage: Schema.Attribute.Media<'images'>;
-    showIcon: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    showText: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    size: Schema.Attribute.Enumeration<['small', 'medium', 'large']> &
-      Schema.Attribute.DefaultTo<'medium'>;
-    target: Schema.Attribute.Enumeration<['_self', '_blank']> &
-      Schema.Attribute.DefaultTo<'_self'>;
-    textColor: Schema.Attribute.Enumeration<
-      ['light', 'dark', 'primary', 'white']
+    backgroundColor: Schema.Attribute.Enumeration<
+      ['dark-blue', 'dark', 'light', 'primary']
     > &
+      Schema.Attribute.DefaultTo<'dark-blue'>;
+    bottomBar: Schema.Attribute.Component<'content.legal-links', false>;
+    className: Schema.Attribute.String;
+    companyInfo: Schema.Attribute.Component<'company.company-info', false>;
+    maxWidth: Schema.Attribute.Enumeration<['full', 'container', 'wide']> &
+      Schema.Attribute.DefaultTo<'container'>;
+    newsletter: Schema.Attribute.Component<'forms.newsletter-signup', false>;
+    offices: Schema.Attribute.Component<'company.company-offices', false>;
+    padding: Schema.Attribute.Enumeration<['small', 'medium', 'large']> &
+      Schema.Attribute.DefaultTo<'large'>;
+    quickLinks: Schema.Attribute.Component<'navigation.quick-links', false>;
+    showOnDesktop: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    showOnMobile: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    showOnTablet: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    textColor: Schema.Attribute.Enumeration<['light', 'dark', 'primary']> &
+      Schema.Attribute.DefaultTo<'light'>;
+  };
+}
+
+export interface LayoutHeader extends Struct.ComponentSchema {
+  collectionName: 'components_layout_headers';
+  info: {
+    displayName: 'Header';
+  };
+  attributes: {
+    backgroundColor: Schema.Attribute.Enumeration<
+      ['transparent', 'dark', 'light', 'primary']
+    > &
+      Schema.Attribute.DefaultTo<'transparent'>;
+    className: Schema.Attribute.String;
+    ctaButton: Schema.Attribute.Component<'shared.link', false>;
+    isSticky: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    isTransparent: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    logo: Schema.Attribute.Component<'company.company-logo', false>;
+    maxWidth: Schema.Attribute.Enumeration<['full', 'container', 'wide']> &
+      Schema.Attribute.DefaultTo<'container'>;
+    navigation: Schema.Attribute.Component<'navigation.navigation-item', true>;
+    padding: Schema.Attribute.Enumeration<['small', 'medium', 'large']> &
+      Schema.Attribute.DefaultTo<'medium'>;
+    showOnDesktop: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    showOnMobile: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    showOnTablet: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    textColor: Schema.Attribute.Enumeration<['light', 'dark', 'primary']> &
       Schema.Attribute.DefaultTo<'light'>;
   };
 }
@@ -224,62 +264,19 @@ export interface NavigationNavigationItem extends Struct.ComponentSchema {
   };
 }
 
-export interface SectionsFooter extends Struct.ComponentSchema {
-  collectionName: 'components_sections_footers';
+export interface NavigationQuickLinks extends Struct.ComponentSchema {
+  collectionName: 'components_navigation_quick_links';
   info: {
-    displayName: 'Footer';
+    displayName: 'Quick Links';
   };
   attributes: {
-    backgroundColor: Schema.Attribute.Enumeration<
-      ['dark-blue', 'dark', 'light', 'primary']
-    > &
-      Schema.Attribute.DefaultTo<'dark-blue'>;
-    bottomBar: Schema.Attribute.Component<'content.footer-bottom-bar', false>;
     className: Schema.Attribute.String;
-    companyInfo: Schema.Attribute.Component<
-      'content.footer-company-info',
-      false
-    >;
-    maxWidth: Schema.Attribute.Enumeration<['full', 'container', 'wide']> &
-      Schema.Attribute.DefaultTo<'container'>;
-    newsletter: Schema.Attribute.Component<'forms.footer-newsletter', false>;
-    offices: Schema.Attribute.Component<'content.footer-offices', false>;
-    padding: Schema.Attribute.Enumeration<['small', 'medium', 'large']> &
-      Schema.Attribute.DefaultTo<'large'>;
-    quickLinks: Schema.Attribute.Component<'content.footer-quick-links', false>;
-    showOnDesktop: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    showOnMobile: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    showOnTablet: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    links: Schema.Attribute.Component<'shared.link', true>;
+    showLinks: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    showTitle: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     textColor: Schema.Attribute.Enumeration<['light', 'dark', 'primary']> &
       Schema.Attribute.DefaultTo<'light'>;
-  };
-}
-
-export interface SectionsHeader extends Struct.ComponentSchema {
-  collectionName: 'components_sections_headers';
-  info: {
-    displayName: 'Header';
-  };
-  attributes: {
-    backgroundColor: Schema.Attribute.Enumeration<
-      ['transparent', 'dark', 'light', 'primary']
-    > &
-      Schema.Attribute.DefaultTo<'transparent'>;
-    className: Schema.Attribute.String;
-    ctaButton: Schema.Attribute.Component<'shared.link', false>;
-    isSticky: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    isTransparent: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    logo: Schema.Attribute.Component<'navigation.logo', false>;
-    maxWidth: Schema.Attribute.Enumeration<['full', 'container', 'wide']> &
-      Schema.Attribute.DefaultTo<'container'>;
-    navigation: Schema.Attribute.Component<'navigation.navigation-item', true>;
-    padding: Schema.Attribute.Enumeration<['small', 'medium', 'large']> &
-      Schema.Attribute.DefaultTo<'medium'>;
-    showOnDesktop: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    showOnMobile: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    showOnTablet: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    textColor: Schema.Attribute.Enumeration<['light', 'dark', 'primary']> &
-      Schema.Attribute.DefaultTo<'light'>;
+    title: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Quick Links'>;
   };
 }
 
@@ -400,18 +397,18 @@ export interface SharedLogoLink extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
-      'content.contact-info': ContentContactInfo;
-      'content.footer-bottom-bar': ContentFooterBottomBar;
-      'content.footer-company-info': ContentFooterCompanyInfo;
-      'content.footer-offices': ContentFooterOffices;
-      'content.footer-quick-links': ContentFooterQuickLinks;
-      'content.office-location': ContentOfficeLocation;
-      'forms.contact-item': FormsContactItem;
-      'forms.footer-newsletter': FormsFooterNewsletter;
-      'navigation.logo': NavigationLogo;
+      'company.company-contact': CompanyCompanyContact;
+      'company.company-info': CompanyCompanyInfo;
+      'company.company-logo': CompanyCompanyLogo;
+      'company.company-offices': CompanyCompanyOffices;
+      'company.office-location': CompanyOfficeLocation;
+      'content.legal-links': ContentLegalLinks;
+      'forms.contact-form-item': FormsContactFormItem;
+      'forms.newsletter-signup': FormsNewsletterSignup;
+      'layout.footer': LayoutFooter;
+      'layout.header': LayoutHeader;
       'navigation.navigation-item': NavigationNavigationItem;
-      'sections.footer': SectionsFooter;
-      'sections.header': SectionsHeader;
+      'navigation.quick-links': NavigationQuickLinks;
       'shared.base-link': SharedBaseLink;
       'shared.link': SharedLink;
       'shared.logo-link': SharedLogoLink;

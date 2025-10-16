@@ -1,7 +1,7 @@
 {
-  "collectionName": "components_forms_contact_items",
+  "collectionName": "components_forms_contact_form_items",
   "info": {
-    "displayName": "Contact Item"
+    "displayName": "Contact Form Item"
   },
   "options": {},
   "attributes": {

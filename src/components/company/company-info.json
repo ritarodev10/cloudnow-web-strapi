@@ -1,14 +1,14 @@
 {
-  "collectionName": "components_content_footer_company_infos",
+  "collectionName": "components_company_company_infos",
   "info": {
-    "displayName": "Footer Company Info"
+    "displayName": "Company Info"
   },
   "options": {},
   "attributes": {
     "logo": {
       "type": "component",
       "repeatable": false,
-      "component": "navigation.logo"
+      "component": "company.company-logo"
     },
     "description": {
       "type": "text",

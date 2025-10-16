@@ -1,5 +1,5 @@
 {
-  "collectionName": "components_sections_footers",
+  "collectionName": "components_layout_footers",
   "info": {
     "displayName": "Footer"
   },
@@ -8,27 +8,27 @@
     "companyInfo": {
       "type": "component",
       "repeatable": false,
-      "component": "content.footer-company-info"
+      "component": "company.company-info"
     },
     "offices": {
       "type": "component",
       "repeatable": false,
-      "component": "content.footer-offices"
+      "component": "company.company-offices"
     },
     "quickLinks": {
       "type": "component",
       "repeatable": false,
-      "component": "content.footer-quick-links"
+      "component": "navigation.quick-links"
     },
     "newsletter": {
       "type": "component",
       "repeatable": false,
-      "component": "forms.footer-newsletter"
+      "component": "forms.newsletter-signup"
     },
     "bottomBar": {
       "type": "component",
       "repeatable": false,
-      "component": "content.footer-bottom-bar"
+      "component": "content.legal-links"
     },
     "backgroundColor": {
       "type": "enumeration",

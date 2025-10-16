@@ -1,7 +1,7 @@
 {
-  "collectionName": "components_content_footer_quick_links",
+  "collectionName": "components_navigation_quick_links",
   "info": {
-    "displayName": "Footer Quick Links"
+    "displayName": "Quick Links"
   },
   "options": {},
   "attributes": {
