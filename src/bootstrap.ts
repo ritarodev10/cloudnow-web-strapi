@@ -1,4 +1,34 @@
 export default async ({ strapi }) => {
+  // Configure API permissions for global-settings
+  try {
+    const publicRole = await strapi.query('plugin::users-permissions.role').findOne({
+      where: { type: 'public' }
+    });
+
+    if (publicRole) {
+      const globalSettingPermissions = {
+        ...publicRole.permissions,
+        'api::global-setting.global-setting': {
+          controllers: {
+            'global-setting': {
+              find: { enabled: true },
+              findOne: { enabled: true }
+            }
+          }
+        }
+      };
+
+      await strapi.query('plugin::users-permissions.role').update({
+        where: { id: publicRole.id },
+        data: { permissions: globalSettingPermissions }
+      });
+
+      console.log("✅ Global-settings API permissions configured for public access");
+    }
+  } catch (error) {
+    console.log("⚠️ Could not configure permissions automatically:", error.message);
+  }
+
   // Check if global settings already exist
   const existingSettings = await strapi.entityService.findMany("api::global-setting.global-setting");
 
