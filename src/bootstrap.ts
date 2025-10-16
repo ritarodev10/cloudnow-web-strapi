@@ -375,10 +375,15 @@ export default async ({ strapi }) => {
 
 async function createSampleBlogData(strapi) {
   try {
-    // Check if blog data already exists
+    // Check existing data
     const existingArticles = await strapi.entityService.findMany("api::article.article");
+    const existingTags = await strapi.entityService.findMany("api::tag.tag");
+    const existingCategories = await strapi.entityService.findMany("api::category.category");
+    const existingAuthors = await strapi.entityService.findMany("api::author.author");
     
-    if (existingArticles.length > 0) {
+    console.log(`📊 Current data: ${existingArticles.length} articles, ${existingTags.length} tags, ${existingCategories.length} categories, ${existingAuthors.length} authors`);
+    
+    if (existingArticles.length > 0 && existingTags.length > 0) {
       console.log("ℹ️ Blog data already exists, skipping creation.");
       return;
     }
@@ -645,5 +650,6 @@ async function createSampleBlogData(strapi) {
 
   } catch (error) {
     console.log("⚠️ Error creating sample blog data:", error.message);
+    console.log("📋 Error details:", error);
   }
 }
