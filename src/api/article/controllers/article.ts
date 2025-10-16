@@ -6,19 +6,16 @@ export default {
         author: {
           populate: {
             avatar: true,
-            userStaff: true
+            user: {
+              populate: {
+                role: true
+              }
+            }
           }
         },
         category: true,
         tags: true,
-        featuredImage: true,
-        gallery: true,
-        relatedArticles: {
-          populate: {
-            featuredImage: true,
-            author: true
-          }
-        }
+        featuredImage: true
       }
     });
     return entities;
@@ -32,19 +29,16 @@ export default {
         author: {
           populate: {
             avatar: true,
-            userStaff: true
+            user: {
+              populate: {
+                role: true
+              }
+            }
           }
         },
         category: true,
         tags: true,
-        featuredImage: true,
-        gallery: true,
-        relatedArticles: {
-          populate: {
-            featuredImage: true,
-            author: true
-          }
-        }
+        featuredImage: true
       }
     });
     return entity;
