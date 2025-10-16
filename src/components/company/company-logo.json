@@ -32,20 +32,10 @@
       "type": "boolean",
       "default": true
     },
-    "textColor": {
-      "type": "enumeration",
-      "enum": ["light", "dark", "primary", "white"],
-      "default": "light"
-    },
     "iconPosition": {
       "type": "enumeration",
       "enum": ["left", "right"],
       "default": "right"
-    },
-    "size": {
-      "type": "enumeration",
-      "enum": ["small", "medium", "large"],
-      "default": "medium"
     },
     "isExternal": {
       "type": "boolean",
@@ -57,9 +47,6 @@
       "default": "_self"
     },
     "ariaLabel": {
-      "type": "string"
-    },
-    "className": {
       "type": "string"
     }
   },

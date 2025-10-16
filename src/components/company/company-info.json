@@ -29,14 +29,6 @@
     "showCopyright": {
       "type": "boolean",
       "default": true
-    },
-    "textColor": {
-      "type": "enumeration",
-      "enum": ["light", "dark", "primary"],
-      "default": "light"
-    },
-    "className": {
-      "type": "string"
     }
   },
   "config": {}

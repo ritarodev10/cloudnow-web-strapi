@@ -38,9 +38,6 @@
     "showIcon": {
       "type": "boolean",
       "default": true
-    },
-    "className": {
-      "type": "string"
     }
   },
   "config": {}

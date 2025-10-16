@@ -46,9 +46,6 @@
     },
     "ariaLabel": {
       "type": "string"
-    },
-    "className": {
-      "type": "string"
     }
   },
   "config": {}

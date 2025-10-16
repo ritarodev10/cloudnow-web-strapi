@@ -36,24 +36,6 @@
     "showPrivacyText": {
       "type": "boolean",
       "default": true
-    },
-    "buttonType": {
-      "type": "enumeration",
-      "enum": ["primary", "secondary", "outline"],
-      "default": "primary"
-    },
-    "buttonSize": {
-      "type": "enumeration",
-      "enum": ["small", "medium", "large"],
-      "default": "medium"
-    },
-    "textColor": {
-      "type": "enumeration",
-      "enum": ["light", "dark", "primary"],
-      "default": "light"
-    },
-    "className": {
-      "type": "string"
     }
   },
   "config": {}

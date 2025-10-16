@@ -6,7 +6,6 @@ export interface CompanyCompanyContact extends Struct.ComponentSchema {
     displayName: 'Company Contact';
   };
   attributes: {
-    className: Schema.Attribute.String;
     email: Schema.Attribute.Component<'forms.contact-form-item', false>;
     phoneNumbers: Schema.Attribute.Component<'forms.contact-form-item', true>;
     showEmail: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
@@ -15,8 +14,6 @@ export interface CompanyCompanyContact extends Struct.ComponentSchema {
     showSocialLinks: Schema.Attribute.Boolean &
       Schema.Attribute.DefaultTo<true>;
     socialLinks: Schema.Attribute.Component<'forms.contact-form-item', true>;
-    textColor: Schema.Attribute.Enumeration<['light', 'dark', 'primary']> &
-      Schema.Attribute.DefaultTo<'light'>;
   };
 }
 
@@ -26,7 +23,6 @@ export interface CompanyCompanyInfo extends Struct.ComponentSchema {
     displayName: 'Company Info';
   };
   attributes: {
-    className: Schema.Attribute.String;
     copyright: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'\u00A9 2025 CloudNow. All rights reserved.'>;
     description: Schema.Attribute.Text &
@@ -36,8 +32,6 @@ export interface CompanyCompanyInfo extends Struct.ComponentSchema {
     showDescription: Schema.Attribute.Boolean &
       Schema.Attribute.DefaultTo<true>;
     showLogo: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    textColor: Schema.Attribute.Enumeration<['light', 'dark', 'primary']> &
-      Schema.Attribute.DefaultTo<'light'>;
   };
 }
 
@@ -48,7 +42,6 @@ export interface CompanyCompanyLogo extends Struct.ComponentSchema {
   };
   attributes: {
     ariaLabel: Schema.Attribute.String;
-    className: Schema.Attribute.String;
     cloudIcon: Schema.Attribute.Media<'images'>;
     companyName: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -60,14 +53,8 @@ export interface CompanyCompanyLogo extends Struct.ComponentSchema {
     logoImage: Schema.Attribute.Media<'images'>;
     showIcon: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     showText: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    size: Schema.Attribute.Enumeration<['small', 'medium', 'large']> &
-      Schema.Attribute.DefaultTo<'medium'>;
     target: Schema.Attribute.Enumeration<['_self', '_blank']> &
       Schema.Attribute.DefaultTo<'_self'>;
-    textColor: Schema.Attribute.Enumeration<
-      ['light', 'dark', 'primary', 'white']
-    > &
-      Schema.Attribute.DefaultTo<'light'>;
   };
 }
 
@@ -77,15 +64,12 @@ export interface CompanyCompanyOffices extends Struct.ComponentSchema {
     displayName: 'Company Offices';
   };
   attributes: {
-    className: Schema.Attribute.String;
     contactInfo: Schema.Attribute.Component<'company.company-contact', false>;
     offices: Schema.Attribute.Component<'company.office-location', true>;
     showContactInfo: Schema.Attribute.Boolean &
       Schema.Attribute.DefaultTo<true>;
     showOffices: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     showTitle: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    textColor: Schema.Attribute.Enumeration<['light', 'dark', 'primary']> &
-      Schema.Attribute.DefaultTo<'light'>;
     title: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Our Offices'>;
   };
 }
@@ -97,7 +81,6 @@ export interface CompanyOfficeLocation extends Struct.ComponentSchema {
   };
   attributes: {
     address: Schema.Attribute.Text & Schema.Attribute.Required;
-    className: Schema.Attribute.String;
     country: Schema.Attribute.String & Schema.Attribute.Required;
     icon: Schema.Attribute.Media<'images'>;
     isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
@@ -111,21 +94,8 @@ export interface ContentLegalLinks extends Struct.ComponentSchema {
     displayName: 'Legal Links';
   };
   attributes: {
-    backgroundColor: Schema.Attribute.Enumeration<
-      ['transparent', 'dark', 'light', 'primary']
-    > &
-      Schema.Attribute.DefaultTo<'transparent'>;
-    className: Schema.Attribute.String;
     links: Schema.Attribute.Component<'shared.link', true>;
-    padding: Schema.Attribute.Enumeration<['small', 'medium', 'large']> &
-      Schema.Attribute.DefaultTo<'small'>;
-    separatorColor: Schema.Attribute.Enumeration<
-      ['light', 'dark', 'primary', 'gray']
-    > &
-      Schema.Attribute.DefaultTo<'gray'>;
     showSeparator: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    textColor: Schema.Attribute.Enumeration<['light', 'dark', 'primary']> &
-      Schema.Attribute.DefaultTo<'light'>;
   };
 }
 
@@ -135,7 +105,6 @@ export interface FormsContactFormItem extends Struct.ComponentSchema {
     displayName: 'Contact Form Item';
   };
   attributes: {
-    className: Schema.Attribute.String;
     href: Schema.Attribute.String;
     icon: Schema.Attribute.Media<'images'>;
     iconType: Schema.Attribute.Enumeration<
@@ -157,15 +126,8 @@ export interface FormsNewsletterSignup extends Struct.ComponentSchema {
     displayName: 'Newsletter Signup';
   };
   attributes: {
-    buttonSize: Schema.Attribute.Enumeration<['small', 'medium', 'large']> &
-      Schema.Attribute.DefaultTo<'medium'>;
     buttonText: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'Subscribe'>;
-    buttonType: Schema.Attribute.Enumeration<
-      ['primary', 'secondary', 'outline']
-    > &
-      Schema.Attribute.DefaultTo<'primary'>;
-    className: Schema.Attribute.String;
     description: Schema.Attribute.Text &
       Schema.Attribute.DefaultTo<'Join our newsletter to stay up to date on features and releases.'>;
     placeholder: Schema.Attribute.String &
@@ -177,8 +139,6 @@ export interface FormsNewsletterSignup extends Struct.ComponentSchema {
     showPrivacyText: Schema.Attribute.Boolean &
       Schema.Attribute.DefaultTo<true>;
     showTitle: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    textColor: Schema.Attribute.Enumeration<['light', 'dark', 'primary']> &
-      Schema.Attribute.DefaultTo<'light'>;
     title: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Subscribe'>;
   };
 }
@@ -189,25 +149,11 @@ export interface LayoutFooter extends Struct.ComponentSchema {
     displayName: 'Footer';
   };
   attributes: {
-    backgroundColor: Schema.Attribute.Enumeration<
-      ['dark-blue', 'dark', 'light', 'primary']
-    > &
-      Schema.Attribute.DefaultTo<'dark-blue'>;
     bottomBar: Schema.Attribute.Component<'content.legal-links', false>;
-    className: Schema.Attribute.String;
     companyInfo: Schema.Attribute.Component<'company.company-info', false>;
-    maxWidth: Schema.Attribute.Enumeration<['full', 'container', 'wide']> &
-      Schema.Attribute.DefaultTo<'container'>;
     newsletter: Schema.Attribute.Component<'forms.newsletter-signup', false>;
     offices: Schema.Attribute.Component<'company.company-offices', false>;
-    padding: Schema.Attribute.Enumeration<['small', 'medium', 'large']> &
-      Schema.Attribute.DefaultTo<'large'>;
     quickLinks: Schema.Attribute.Component<'navigation.quick-links', false>;
-    showOnDesktop: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    showOnMobile: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    showOnTablet: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    textColor: Schema.Attribute.Enumeration<['light', 'dark', 'primary']> &
-      Schema.Attribute.DefaultTo<'light'>;
   };
 }
 
@@ -217,25 +163,9 @@ export interface LayoutHeader extends Struct.ComponentSchema {
     displayName: 'Header';
   };
   attributes: {
-    backgroundColor: Schema.Attribute.Enumeration<
-      ['transparent', 'dark', 'light', 'primary']
-    > &
-      Schema.Attribute.DefaultTo<'transparent'>;
-    className: Schema.Attribute.String;
     ctaButton: Schema.Attribute.Component<'shared.link', false>;
-    isSticky: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    isTransparent: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     logo: Schema.Attribute.Component<'company.company-logo', false>;
-    maxWidth: Schema.Attribute.Enumeration<['full', 'container', 'wide']> &
-      Schema.Attribute.DefaultTo<'container'>;
     navigation: Schema.Attribute.Component<'navigation.navigation-item', true>;
-    padding: Schema.Attribute.Enumeration<['small', 'medium', 'large']> &
-      Schema.Attribute.DefaultTo<'medium'>;
-    showOnDesktop: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    showOnMobile: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    showOnTablet: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    textColor: Schema.Attribute.Enumeration<['light', 'dark', 'primary']> &
-      Schema.Attribute.DefaultTo<'light'>;
   };
 }
 
@@ -246,7 +176,6 @@ export interface NavigationNavigationItem extends Struct.ComponentSchema {
   };
   attributes: {
     ariaLabel: Schema.Attribute.String;
-    className: Schema.Attribute.String;
     dropdownItems: Schema.Attribute.Component<
       'navigation.navigation-item',
       true
@@ -270,12 +199,9 @@ export interface NavigationQuickLinks extends Struct.ComponentSchema {
     displayName: 'Quick Links';
   };
   attributes: {
-    className: Schema.Attribute.String;
     links: Schema.Attribute.Component<'shared.link', true>;
     showLinks: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     showTitle: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    textColor: Schema.Attribute.Enumeration<['light', 'dark', 'primary']> &
-      Schema.Attribute.DefaultTo<'light'>;
     title: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Quick Links'>;
   };
 }
