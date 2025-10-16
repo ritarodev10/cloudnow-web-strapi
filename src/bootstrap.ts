@@ -446,7 +446,7 @@ async function createSampleBlogData(strapi) {
       }
     });
 
-    // Create Sample Articles (without author links for now)
+    // Create Sample Articles (without author links and tags for now)
     const article1 = await strapi.entityService.create("api::article.article", {
       data: {
         title: "Getting Started with Cloud Migration: A Complete Guide",
@@ -462,8 +462,7 @@ async function createSampleBlogData(strapi) {
         seoTitle: "Cloud Migration Guide: Complete Step-by-Step Tutorial",
         seoDescription: "Learn how to migrate your business to the cloud with our comprehensive guide covering planning, execution, and best practices.",
         seoKeywords: "cloud migration, AWS, Azure, cloud computing, IT consulting",
-        category: cloudCategory.id,
-        tags: [awsTag.id, migrationTag.id]
+        category: cloudCategory.id
       }
     });
 
@@ -482,8 +481,7 @@ async function createSampleBlogData(strapi) {
         seoTitle: "Small Business Cybersecurity: Essential Protection Guide",
         seoDescription: "Protect your small business from cyber threats with our comprehensive cybersecurity guide and best practices.",
         seoKeywords: "cybersecurity, small business, security, data protection",
-        category: securityCategory.id,
-        tags: [securityTag.id]
+        category: securityCategory.id
       }
     });
 
@@ -502,26 +500,8 @@ async function createSampleBlogData(strapi) {
         seoTitle: "AWS vs Azure: Complete Cloud Platform Comparison Guide",
         seoDescription: "Compare AWS and Azure cloud platforms to choose the best solution for your business needs and requirements.",
         seoKeywords: "AWS, Azure, cloud comparison, cloud platform, cloud services",
-        category: cloudCategory.id,
-        tags: [awsTag.id, azureTag.id]
+        category: cloudCategory.id
       }
-    });
-
-    // Update tag usage counts
-    await strapi.entityService.update("api::tag.tag", awsTag.id, {
-      data: { usageCount: 2 }
-    });
-
-    await strapi.entityService.update("api::tag.tag", migrationTag.id, {
-      data: { usageCount: 1 }
-    });
-
-    await strapi.entityService.update("api::tag.tag", securityTag.id, {
-      data: { usageCount: 1 }
-    });
-
-    await strapi.entityService.update("api::tag.tag", azureTag.id, {
-      data: { usageCount: 1 }
     });
 
     console.log("✅ Sample blog data created successfully!");
