@@ -1,15 +1,16 @@
-module.exports = async ({ strapi }) => {
+export default async ({ strapi }) => {
   // Check if global settings already exist
-  const existingSettings = await strapi.entityService.findMany('api::global-settings.global-settings');
-  
+  const existingSettings = await strapi.entityService.findMany("api::global-settings.global-settings");
+
   if (existingSettings.length === 0) {
-    console.log('🚀 Creating initial CloudNow global settings...');
-    
+    console.log("🚀 Creating initial CloudNow global settings...");
+
     // Create global settings with CloudNow data
-    await strapi.entityService.create('api::global-settings.global-settings', {
+    await strapi.entityService.create("api::global-settings.global-settings", {
       data: {
         siteName: "CloudNow",
-        siteDescription: "Specialized IT consulting and cloud services customized to meet your business demands and security needs.",
+        siteDescription:
+          "Specialized IT consulting and cloud services customized to meet your business demands and security needs.",
         siteUrl: "https://cloudnowservices.com",
         header: {
           logo: {
@@ -20,7 +21,7 @@ module.exports = async ({ strapi }) => {
             iconPosition: "right",
             isExternal: false,
             target: "_self",
-            ariaLabel: "CloudNow Home"
+            ariaLabel: "CloudNow Home",
           },
           navigation: [
             {
@@ -31,7 +32,7 @@ module.exports = async ({ strapi }) => {
               hasDropdown: false,
               iconPosition: "none",
               isActive: true,
-              ariaLabel: "Home Page"
+              ariaLabel: "Home Page",
             },
             {
               label: "Services",
@@ -48,7 +49,7 @@ module.exports = async ({ strapi }) => {
                   hasDropdown: false,
                   iconPosition: "none",
                   isActive: false,
-                  ariaLabel: "Cloud Consulting Services"
+                  ariaLabel: "Cloud Consulting Services",
                 },
                 {
                   label: "IT Support",
@@ -58,12 +59,12 @@ module.exports = async ({ strapi }) => {
                   hasDropdown: false,
                   iconPosition: "none",
                   isActive: false,
-                  ariaLabel: "IT Support Services"
-                }
+                  ariaLabel: "IT Support Services",
+                },
               ],
               iconPosition: "right",
               isActive: false,
-              ariaLabel: "Services"
+              ariaLabel: "Services",
             },
             {
               label: "About Us",
@@ -73,8 +74,8 @@ module.exports = async ({ strapi }) => {
               hasDropdown: false,
               iconPosition: "none",
               isActive: false,
-              ariaLabel: "About CloudNow"
-            }
+              ariaLabel: "About CloudNow",
+            },
           ],
           ctaButton: {
             href: "/contact",
@@ -90,8 +91,8 @@ module.exports = async ({ strapi }) => {
             animation: "none",
             showOnMobile: true,
             showOnTablet: true,
-            showOnDesktop: true
-          }
+            showOnDesktop: true,
+          },
         },
         footer: {
           showCompanyInfo: true,
@@ -108,13 +109,14 @@ module.exports = async ({ strapi }) => {
               iconPosition: "right",
               isExternal: false,
               target: "_self",
-              ariaLabel: "CloudNow Home"
+              ariaLabel: "CloudNow Home",
             },
-            description: "Specialized IT consulting and cloud services customized to meet your business demands and security needs.",
+            description:
+              "Specialized IT consulting and cloud services customized to meet your business demands and security needs.",
             copyright: "© 2025 CloudNow. All rights reserved.",
             showLogo: true,
             showDescription: true,
-            showCopyright: true
+            showCopyright: true,
           },
           offices: {
             title: "Our Offices",
@@ -126,20 +128,20 @@ module.exports = async ({ strapi }) => {
                 country: "USA",
                 address: "30 N Gould St Ste N Sheridan, WY 82801",
                 showIcon: true,
-                isActive: true
+                isActive: true,
               },
               {
                 country: "Canada",
                 address: "250 - 997 Seymour St. Vancouver, BC, Canada, V6B 3M1",
                 showIcon: true,
-                isActive: true
+                isActive: true,
               },
               {
                 country: "Indonesia",
                 address: "Jl. Mustika No. 143S Surabaya, Jawa Timur, Indonesia, 60246",
                 showIcon: true,
-                isActive: true
-              }
+                isActive: true,
+              },
             ],
             contactInfo: {
               showPhoneNumbers: true,
@@ -154,7 +156,7 @@ module.exports = async ({ strapi }) => {
                   isExternal: false,
                   target: "_self",
                   showIcon: true,
-                  isActive: true
+                  isActive: true,
                 },
                 {
                   label: "ID",
@@ -164,8 +166,8 @@ module.exports = async ({ strapi }) => {
                   isExternal: false,
                   target: "_self",
                   showIcon: true,
-                  isActive: true
-                }
+                  isActive: true,
+                },
               ],
               email: {
                 label: "Email",
@@ -175,7 +177,7 @@ module.exports = async ({ strapi }) => {
                 isExternal: false,
                 target: "_self",
                 showIcon: true,
-                isActive: true
+                isActive: true,
               },
               socialLinks: [
                 {
@@ -186,10 +188,10 @@ module.exports = async ({ strapi }) => {
                   isExternal: true,
                   target: "_blank",
                   showIcon: true,
-                  isActive: true
-                }
-              ]
-            }
+                  isActive: true,
+                },
+              ],
+            },
           },
           quickLinks: {
             title: "Quick Links",
@@ -208,7 +210,7 @@ module.exports = async ({ strapi }) => {
                 animation: "none",
                 showOnMobile: true,
                 showOnTablet: true,
-                showOnDesktop: true
+                showOnDesktop: true,
               },
               {
                 href: "/about",
@@ -222,7 +224,7 @@ module.exports = async ({ strapi }) => {
                 animation: "none",
                 showOnMobile: true,
                 showOnTablet: true,
-                showOnDesktop: true
+                showOnDesktop: true,
               },
               {
                 href: "/services",
@@ -236,19 +238,20 @@ module.exports = async ({ strapi }) => {
                 animation: "none",
                 showOnMobile: true,
                 showOnTablet: true,
-                showOnDesktop: true
-              }
-            ]
+                showOnDesktop: true,
+              },
+            ],
           },
           newsletter: {
             title: "Subscribe",
             description: "Join our newsletter to stay up to date on features and releases.",
             placeholder: "Enter your email",
             buttonText: "Subscribe",
-            privacyText: "By subscribing you agree to with our Privacy Policy and provide consent to receive updates from our company.",
+            privacyText:
+              "By subscribing you agree to with our Privacy Policy and provide consent to receive updates from our company.",
             showTitle: true,
             showDescription: true,
-            showPrivacyText: true
+            showPrivacyText: true,
           },
           bottomBar: {
             showSeparator: true,
@@ -265,7 +268,7 @@ module.exports = async ({ strapi }) => {
                 animation: "none",
                 showOnMobile: true,
                 showOnTablet: true,
-                showOnDesktop: true
+                showOnDesktop: true,
               },
               {
                 href: "/terms-of-service",
@@ -279,7 +282,7 @@ module.exports = async ({ strapi }) => {
                 animation: "none",
                 showOnMobile: true,
                 showOnTablet: true,
-                showOnDesktop: true
+                showOnDesktop: true,
               },
               {
                 href: "/cookies-settings",
@@ -293,16 +296,16 @@ module.exports = async ({ strapi }) => {
                 animation: "none",
                 showOnMobile: true,
                 showOnTablet: true,
-                showOnDesktop: true
-              }
-            ]
-          }
-        }
-      }
+                showOnDesktop: true,
+              },
+            ],
+          },
+        },
+      },
     });
-    
-    console.log('✅ CloudNow global settings created successfully!');
+
+    console.log("✅ CloudNow global settings created successfully!");
   } else {
-    console.log('ℹ️ Global settings already exist, skipping creation.');
+    console.log("ℹ️ Global settings already exist, skipping creation.");
   }
 };
