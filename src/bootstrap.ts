@@ -390,24 +390,15 @@ async function createSampleBlogData(strapi) {
 
     console.log("🚀 Creating sample blog data...");
 
-    // Create custom roles in Users & Permissions plugin
-    const adminRole = await strapi.query('plugin::users-permissions.role').create({
-      data: {
-        name: "Admin",
-        description: "Full access to all features",
-        type: "admin_custom",
-        permissions: []
-      }
+    // Get existing roles instead of creating custom ones
+    const authenticatedRole = await strapi.query('plugin::users-permissions.role').findOne({
+      where: { type: 'authenticated' }
     });
 
-    const editorRole = await strapi.query('plugin::users-permissions.role').create({
-      data: {
-        name: "Editor",
-        description: "Can create and edit articles",
-        type: "editor_custom",
-        permissions: []
-      }
-    });
+    if (!authenticatedRole) {
+      console.log("⚠️ Authenticated role not found, skipping user creation");
+      return;
+    }
 
     // Create Users using Strapi's built-in user system
     const adminUser = await strapi.query('plugin::users-permissions.user').create({
@@ -417,7 +408,7 @@ async function createSampleBlogData(strapi) {
         password: "CloudNow2025!",
         confirmed: true,
         blocked: false,
-        role: adminRole.id
+        role: authenticatedRole.id
       }
     });
 
@@ -428,7 +419,7 @@ async function createSampleBlogData(strapi) {
         password: "Editor2025!",
         confirmed: true,
         blocked: false,
-        role: editorRole.id
+        role: authenticatedRole.id
       }
     });
 
@@ -646,7 +637,7 @@ async function createSampleBlogData(strapi) {
     });
 
     console.log("✅ Sample blog data created successfully!");
-    console.log(`📝 Created ${3} articles, ${3} categories, ${4} tags, ${2} authors, ${2} users, ${2} custom roles`);
+    console.log(`📝 Created ${3} articles, ${3} categories, ${4} tags, ${2} authors, ${2} users`);
 
   } catch (error) {
     console.log("⚠️ Error creating sample blog data:", error.message);
