@@ -5,16 +5,20 @@ This folder contains sample data for your CloudNow Strapi blog system. You can m
 ## 📁 Files Included
 
 ### 1. `tags.json`
+
 Contains 6 sample tags:
+
 - AWS (#FF9900)
-- Azure (#0078D4) 
+- Azure (#0078D4)
 - Security (#DC2626)
 - Migration (#7C3AED)
 - DevOps (#059669)
 - Cloud Computing (#3B82F6)
 
 ### 2. `articles.json`
+
 Contains 5 sample articles:
+
 - Getting Started with Cloud Migration: A Complete Guide
 - Cybersecurity Best Practices for Small Businesses
 - AWS vs Azure: Choosing the Right Cloud Platform
@@ -22,7 +26,9 @@ Contains 5 sample articles:
 - Cost Optimization Strategies for Cloud Computing
 
 ### 3. `authors.json`
+
 Contains 3 sample authors:
+
 - John Smith (Cloud Architect)
 - Sarah Johnson (Cybersecurity Expert)
 - Mike Chen (DevOps Engineer)
@@ -30,22 +36,26 @@ Contains 3 sample authors:
 ## 🚀 How to Import
 
 ### Step 1: Access Strapi Admin
+
 1. Go to `http://localhost:1337/admin`
 2. Login with your admin credentials
 
 ### Step 2: Import Tags
+
 1. Go to **Content Manager** → **Tag**
 2. Click **Create new entry**
 3. Copy data from `tags.json` and paste into the form
 4. Save and publish each tag
 
 ### Step 3: Import Authors
+
 1. Go to **Content Manager** → **Author**
 2. Click **Create new entry**
 3. Copy data from `authors.json` and paste into the form
 4. Save and publish each author
 
 ### Step 4: Import Articles
+
 1. Go to **Content Manager** → **Article**
 2. Click **Create new entry**
 3. Copy data from `articles.json` and paste into the form
@@ -58,6 +68,7 @@ Contains 3 sample authors:
 ## 🔗 Manual Linking Guide
 
 ### Article-Tag Relationships
+
 - **Cloud Migration Guide**: AWS, Migration
 - **Cybersecurity Guide**: Security
 - **AWS vs Azure**: AWS, Azure
@@ -65,6 +76,7 @@ Contains 3 sample authors:
 - **Cost Optimization**: Cloud Computing
 
 ### Article-Category Relationships
+
 - **Cloud Migration Guide**: Cloud Computing
 - **Cybersecurity Guide**: Security
 - **AWS vs Azure**: Cloud Computing
@@ -72,6 +84,7 @@ Contains 3 sample authors:
 - **Cost Optimization**: Cloud Computing
 
 ### Article-Author Relationships
+
 - **Cloud Migration Guide**: John Smith
 - **Cybersecurity Guide**: Sarah Johnson
 - **AWS vs Azure**: John Smith
@@ -89,6 +102,7 @@ Contains 3 sample authors:
 ## 🎯 Next Steps
 
 After importing all sample data:
+
 1. Test the APIs to ensure everything works
 2. Customize content as needed
 3. Add more articles, tags, and authors

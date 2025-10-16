@@ -1,4 +1,6 @@
 export default async ({ strapi }) => {
+  console.log("🚀 CloudNow Strapi Bootstrap Starting...");
+  
   // Configure API permissions for all content types
   try {
     const publicRole = await strapi.query('plugin::users-permissions.role').findOne({
