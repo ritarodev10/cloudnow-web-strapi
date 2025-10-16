@@ -3,7 +3,7 @@
     "firstName": "John",
     "lastName": "Smith",
     "slug": "john-smith",
-    "bio": "<p>John is a senior cloud architect with over 10 years of experience in AWS and Azure platforms. He specializes in cloud migration strategies and DevOps practices.</p>",
+    "bio": "John is a senior cloud architect with over 10 years of experience in AWS and Azure platforms. He specializes in cloud migration strategies and DevOps practices.",
     "email": "john.smith@cloudnowservices.com",
     "website": "https://johnsmith.dev",
     "socialLinks": {
@@ -12,14 +12,14 @@
       "github": "https://github.com/johnsmith"
     },
     "isActive": true,
-    "joinedAt": "2024-01-15",
+    "joinedAt": "2024-01-15T00:00:00.000Z",
     "articlesCount": 0
   },
   {
     "firstName": "Sarah",
     "lastName": "Johnson",
     "slug": "sarah-johnson",
-    "bio": "<p>Sarah is a cybersecurity expert with extensive experience in protecting small and medium businesses from cyber threats. She holds multiple security certifications.</p>",
+    "bio": "Sarah is a cybersecurity expert with extensive experience in protecting small and medium businesses from cyber threats. She holds multiple security certifications.",
     "email": "sarah.johnson@cloudnowservices.com",
     "website": "https://sarahjohnson.security",
     "socialLinks": {
@@ -27,14 +27,14 @@
       "twitter": "https://twitter.com/sarahjohnson"
     },
     "isActive": true,
-    "joinedAt": "2024-02-01",
+    "joinedAt": "2024-02-01T00:00:00.000Z",
     "articlesCount": 0
   },
   {
     "firstName": "Mike",
     "lastName": "Chen",
     "slug": "mike-chen",
-    "bio": "<p>Mike is a DevOps engineer specializing in automation, CI/CD pipelines, and cloud infrastructure management. He has helped numerous companies streamline their development processes.</p>",
+    "bio": "Mike is a DevOps engineer specializing in automation, CI/CD pipelines, and cloud infrastructure management. He has helped numerous companies streamline their development processes.",
     "email": "mike.chen@cloudnowservices.com",
     "website": "https://mikechen.dev",
     "socialLinks": {
@@ -42,7 +42,7 @@
       "github": "https://github.com/mikechen"
     },
     "isActive": true,
-    "joinedAt": "2024-03-10",
+    "joinedAt": "2024-03-10T00:00:00.000Z",
     "articlesCount": 0
   }
 ]

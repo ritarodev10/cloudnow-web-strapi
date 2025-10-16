@@ -470,10 +470,6 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
         },
         number
       >;
-    relatedArticles: Schema.Attribute.Relation<
-      'manyToMany',
-      'api::article.article'
-    >;
     seoDescription: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 160;

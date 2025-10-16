@@ -371,135 +371,306 @@ export default async ({ strapi }) => {
     console.log("ℹ️ Global settings already exist, skipping creation.");
   }
 
-  // Create sample blog data - DISABLED due to relationship errors
-  // Use sample-data folder for manual import instead
-  // await createSampleBlogData(strapi);
+  // Create sample blog data - Now that relationships are fixed
+  await createSampleBlogData(strapi);
 };
 
 async function createSampleBlogData(strapi) {
   try {
     console.log("🚀 Creating sample blog data...");
 
-    // Skip user creation for now - just create tags and articles
-    console.log("📝 Creating tags and articles without user links...");
+    // Check if data already exists
+    const existingTags = await strapi.entityService.findMany("api::tag.tag");
+    const existingArticles = await strapi.entityService.findMany("api::article.article");
+    const existingAuthors = await strapi.entityService.findMany("api::author.author");
+    
+    console.log(`📊 Current data: ${existingTags.length} tags, ${existingArticles.length} articles, ${existingAuthors.length} authors`);
+    
+    if (existingTags.length > 0 && existingArticles.length > 0 && existingAuthors.length > 0) {
+      console.log("ℹ️ Blog data already exists, skipping creation.");
+      return;
+    }
 
-    // Get existing categories (they already exist)
-    const allCategories = await strapi.entityService.findMany("api::category.category");
-    const cloudCategory = allCategories.find(cat => cat.slug === "cloud-computing");
-    const securityCategory = allCategories.find(cat => cat.slug === "security");
-    const consultingCategory = allCategories.find(cat => cat.slug === "it-consulting");
+    // Create Categories first (they should already exist from bootstrap)
+    const existingCategories = await strapi.entityService.findMany("api::category.category");
+    const cloudCategory = existingCategories.find(cat => cat.slug === "cloud-computing");
+    const securityCategory = existingCategories.find(cat => cat.slug === "security");
+    const consultingCategory = existingCategories.find(cat => cat.slug === "it-consulting");
 
-    console.log(`📂 Found ${allCategories.length} existing categories`);
+    console.log(`📂 Found ${existingCategories.length} existing categories`);
 
     // Create Tags
-    const awsTag = await strapi.entityService.create("api::tag.tag", {
-      data: {
-        name: "AWS",
-        slug: "aws",
-        description: "Amazon Web Services related content",
-        color: "#FF9900",
-        isActive: true,
-        usageCount: 0
-      }
-    });
+    if (existingTags.length === 0) {
+      console.log("🏷️ Creating tags...");
+      
+      const awsTag = await strapi.entityService.create("api::tag.tag", {
+        data: {
+          name: "AWS",
+          slug: "aws",
+          description: "Amazon Web Services related content",
+          color: "#FF9900",
+          isActive: true,
+          usageCount: 0
+        }
+      });
 
-    const azureTag = await strapi.entityService.create("api::tag.tag", {
-      data: {
-        name: "Azure",
-        slug: "azure",
-        description: "Microsoft Azure related content",
-        color: "#0078D4",
-        isActive: true,
-        usageCount: 0
-      }
-    });
+      const azureTag = await strapi.entityService.create("api::tag.tag", {
+        data: {
+          name: "Azure",
+          slug: "azure",
+          description: "Microsoft Azure related content",
+          color: "#0078D4",
+          isActive: true,
+          usageCount: 0
+        }
+      });
 
-    const securityTag = await strapi.entityService.create("api::tag.tag", {
-      data: {
-        name: "Security",
-        slug: "security",
-        description: "Security and compliance related content",
-        color: "#DC2626",
-        isActive: true,
-        usageCount: 0
-      }
-    });
+      const securityTag = await strapi.entityService.create("api::tag.tag", {
+        data: {
+          name: "Security",
+          slug: "security",
+          description: "Security and compliance related content",
+          color: "#DC2626",
+          isActive: true,
+          usageCount: 0
+        }
+      });
 
-    const migrationTag = await strapi.entityService.create("api::tag.tag", {
-      data: {
-        name: "Migration",
-        slug: "migration",
-        description: "Cloud migration strategies and best practices",
-        color: "#7C3AED",
-        isActive: true,
-        usageCount: 0
-      }
-    });
+      const migrationTag = await strapi.entityService.create("api::tag.tag", {
+        data: {
+          name: "Migration",
+          slug: "migration",
+          description: "Cloud migration strategies and best practices",
+          color: "#7C3AED",
+          isActive: true,
+          usageCount: 0
+        }
+      });
 
-    // Create Sample Articles (without author links and tags for now)
-    const article1 = await strapi.entityService.create("api::article.article", {
-      data: {
-        title: "Getting Started with Cloud Migration: A Complete Guide",
-        slug: "getting-started-cloud-migration-complete-guide",
-        excerpt: "Learn the essential steps and best practices for migrating your business to the cloud successfully.",
-        content: "<h2>Introduction</h2><p>Cloud migration is a critical step in modernizing your IT infrastructure...</p><h2>Planning Your Migration</h2><p>Before starting your cloud migration journey...</p>",
-        status: "published",
-        publishedAt: new Date(),
-        readingTime: 8,
-        viewCount: 0,
-        isFeatured: true,
-        allowComments: true,
-        seoTitle: "Cloud Migration Guide: Complete Step-by-Step Tutorial",
-        seoDescription: "Learn how to migrate your business to the cloud with our comprehensive guide covering planning, execution, and best practices.",
-        seoKeywords: "cloud migration, AWS, Azure, cloud computing, IT consulting",
-        category: cloudCategory.id
-      }
-    });
+      const devopsTag = await strapi.entityService.create("api::tag.tag", {
+        data: {
+          name: "DevOps",
+          slug: "devops",
+          description: "DevOps practices and tools",
+          color: "#059669",
+          isActive: true,
+          usageCount: 0
+        }
+      });
 
-    const article2 = await strapi.entityService.create("api::article.article", {
-      data: {
-        title: "Cybersecurity Best Practices for Small Businesses",
-        slug: "cybersecurity-best-practices-small-businesses",
-        excerpt: "Protect your small business from cyber threats with these essential security practices.",
-        content: "<h2>Why Cybersecurity Matters</h2><p>Small businesses are increasingly targeted by cybercriminals...</p><h2>Essential Security Measures</h2><p>Implement these key security practices...</p>",
-        status: "published",
-        publishedAt: new Date(),
-        readingTime: 6,
-        viewCount: 0,
-        isFeatured: false,
-        allowComments: true,
-        seoTitle: "Small Business Cybersecurity: Essential Protection Guide",
-        seoDescription: "Protect your small business from cyber threats with our comprehensive cybersecurity guide and best practices.",
-        seoKeywords: "cybersecurity, small business, security, data protection",
-        category: securityCategory.id
-      }
-    });
+      const cloudTag = await strapi.entityService.create("api::tag.tag", {
+        data: {
+          name: "Cloud Computing",
+          slug: "cloud-computing",
+          description: "General cloud computing topics",
+          color: "#3B82F6",
+          isActive: true,
+          usageCount: 0
+        }
+      });
 
-    const article3 = await strapi.entityService.create("api::article.article", {
-      data: {
-        title: "AWS vs Azure: Choosing the Right Cloud Platform",
-        slug: "aws-vs-azure-choosing-right-cloud-platform",
-        excerpt: "Compare AWS and Azure to make an informed decision for your cloud infrastructure needs.",
-        content: "<h2>Platform Comparison</h2><p>Both AWS and Azure offer comprehensive cloud services...</p><h2>Making Your Choice</h2><p>Consider these factors when choosing...</p>",
-        status: "published",
-        publishedAt: new Date(),
-        readingTime: 10,
-        viewCount: 0,
-        isFeatured: true,
-        allowComments: true,
-        seoTitle: "AWS vs Azure: Complete Cloud Platform Comparison Guide",
-        seoDescription: "Compare AWS and Azure cloud platforms to choose the best solution for your business needs and requirements.",
-        seoKeywords: "AWS, Azure, cloud comparison, cloud platform, cloud services",
-        category: cloudCategory.id
-      }
-    });
+      console.log("✅ Tags created successfully!");
+    }
 
-    console.log("✅ Sample blog data created successfully!");
-    console.log(`📝 Created ${3} articles, ${3} categories, ${4} tags`);
+    // Create Authors
+    if (existingAuthors.length === 0) {
+      console.log("👥 Creating authors...");
+      
+      const johnAuthor = await strapi.entityService.create("api::author.author", {
+        data: {
+          firstName: "John",
+          lastName: "Smith",
+          slug: "john-smith",
+          bio: "John is a senior cloud architect with over 10 years of experience in AWS and Azure platforms. He specializes in cloud migration strategies and DevOps practices.",
+          email: "john.smith@cloudnowservices.com",
+          website: "https://johnsmith.dev",
+          socialLinks: {
+            linkedin: "https://linkedin.com/in/johnsmith",
+            twitter: "https://twitter.com/johnsmith",
+            github: "https://github.com/johnsmith"
+          },
+          isActive: true,
+          joinedAt: "2024-01-15T00:00:00.000Z",
+          articlesCount: 0
+        }
+      });
+
+      const sarahAuthor = await strapi.entityService.create("api::author.author", {
+        data: {
+          firstName: "Sarah",
+          lastName: "Johnson",
+          slug: "sarah-johnson",
+          bio: "Sarah is a cybersecurity expert with extensive experience in protecting small and medium businesses from cyber threats. She holds multiple security certifications.",
+          email: "sarah.johnson@cloudnowservices.com",
+          website: "https://sarahjohnson.security",
+          socialLinks: {
+            linkedin: "https://linkedin.com/in/sarahjohnson",
+            twitter: "https://twitter.com/sarahjohnson"
+          },
+          isActive: true,
+          joinedAt: "2024-02-01T00:00:00.000Z",
+          articlesCount: 0
+        }
+      });
+
+      const mikeAuthor = await strapi.entityService.create("api::author.author", {
+        data: {
+          firstName: "Mike",
+          lastName: "Chen",
+          slug: "mike-chen",
+          bio: "Mike is a DevOps engineer specializing in automation, CI/CD pipelines, and cloud infrastructure management. He has helped numerous companies streamline their development processes.",
+          email: "mike.chen@cloudnowservices.com",
+          website: "https://mikechen.dev",
+          socialLinks: {
+            linkedin: "https://linkedin.com/in/mikechen",
+            github: "https://github.com/mikechen"
+          },
+          isActive: true,
+          joinedAt: "2024-03-10T00:00:00.000Z",
+          articlesCount: 0
+        }
+      });
+
+      console.log("✅ Authors created successfully!");
+    }
+
+    // Create Articles
+    if (existingArticles.length === 0) {
+      console.log("📝 Creating articles...");
+      
+      // Get created tags and authors
+      const tags = await strapi.entityService.findMany("api::tag.tag");
+      const authors = await strapi.entityService.findMany("api::author.author");
+      
+      const awsTag = tags.find(tag => tag.slug === "aws");
+      const azureTag = tags.find(tag => tag.slug === "azure");
+      const securityTag = tags.find(tag => tag.slug === "security");
+      const migrationTag = tags.find(tag => tag.slug === "migration");
+      const devopsTag = tags.find(tag => tag.slug === "devops");
+      const cloudTag = tags.find(tag => tag.slug === "cloud-computing");
+      
+      const johnAuthor = authors.find(author => author.slug === "john-smith");
+      const sarahAuthor = authors.find(author => author.slug === "sarah-johnson");
+      const mikeAuthor = authors.find(author => author.slug === "mike-chen");
+
+      // Article 1: Cloud Migration Guide
+      await strapi.entityService.create("api::article.article", {
+        data: {
+          title: "Getting Started with Cloud Migration: A Complete Guide",
+          slug: "getting-started-cloud-migration-complete-guide",
+          excerpt: "Learn the essential steps and best practices for migrating your business to the cloud successfully.",
+          content: "<h2>Introduction</h2><p>Cloud migration is a critical step in modernizing your IT infrastructure. In this comprehensive guide, we'll walk you through everything you need to know to successfully migrate your business to the cloud.</p><h2>Planning Your Migration</h2><p>Before starting your cloud migration journey, it's crucial to have a solid plan in place. This includes assessing your current infrastructure, identifying workloads suitable for migration, and choosing the right cloud provider.</p><h2>Key Considerations</h2><ul><li>Cost optimization</li><li>Security and compliance</li><li>Performance requirements</li><li>Disaster recovery</li></ul><h2>Conclusion</h2><p>Cloud migration can be complex, but with proper planning and execution, it can transform your business operations and provide significant benefits.</p>",
+          status: "published",
+          publishedAt: "2025-01-16T00:00:00.000Z",
+          readingTime: 8,
+          viewCount: 0,
+          isFeatured: true,
+          allowComments: true,
+          seoTitle: "Cloud Migration Guide: Complete Step-by-Step Tutorial",
+          seoDescription: "Learn how to migrate your business to the cloud with our comprehensive guide covering planning, execution, and best practices.",
+          seoKeywords: "cloud migration, AWS, Azure, cloud computing, IT consulting",
+          author: johnAuthor.id,
+          category: cloudCategory.id,
+          tags: [awsTag.id, migrationTag.id]
+        }
+      });
+
+      // Article 2: Cybersecurity Guide
+      await strapi.entityService.create("api::article.article", {
+        data: {
+          title: "Cybersecurity Best Practices for Small Businesses",
+          slug: "cybersecurity-best-practices-small-businesses",
+          excerpt: "Protect your small business from cyber threats with these essential security practices.",
+          content: "<h2>Why Cybersecurity Matters</h2><p>Small businesses are increasingly targeted by cybercriminals because they often have weaker security measures than large enterprises. Implementing proper cybersecurity practices is essential for protecting your business and customer data.</p><h2>Essential Security Measures</h2><p>Implement these key security practices to protect your business:</p><ul><li>Use strong passwords and multi-factor authentication</li><li>Keep software and systems updated</li><li>Implement regular data backups</li><li>Train employees on security awareness</li><li>Use firewalls and antivirus software</li></ul><h2>Creating a Security Culture</h2><p>Building a security-conscious culture within your organization is crucial for long-term protection against cyber threats.</p>",
+          status: "published",
+          publishedAt: "2025-01-15T00:00:00.000Z",
+          readingTime: 6,
+          viewCount: 0,
+          isFeatured: false,
+          allowComments: true,
+          seoTitle: "Small Business Cybersecurity: Essential Protection Guide",
+          seoDescription: "Protect your small business from cyber threats with our comprehensive cybersecurity guide and best practices.",
+          seoKeywords: "cybersecurity, small business, security, data protection",
+          author: sarahAuthor.id,
+          category: securityCategory.id,
+          tags: [securityTag.id]
+        }
+      });
+
+      // Article 3: AWS vs Azure
+      await strapi.entityService.create("api::article.article", {
+        data: {
+          title: "AWS vs Azure: Choosing the Right Cloud Platform",
+          slug: "aws-vs-azure-choosing-right-cloud-platform",
+          excerpt: "Compare AWS and Azure to make an informed decision for your cloud infrastructure needs.",
+          content: "<h2>Platform Comparison</h2><p>Both AWS and Azure offer comprehensive cloud services, but they have different strengths and pricing models. Understanding these differences is crucial for making the right choice for your business.</p><h2>Service Offerings</h2><p>AWS provides a vast array of services with deep functionality, while Azure offers strong integration with Microsoft products and enterprise features.</p><h2>Pricing Models</h2><p>Both platforms offer pay-as-you-go pricing, but Azure often provides better pricing for Windows-based workloads, while AWS may be more cost-effective for Linux environments.</p><h2>Making Your Choice</h2><p>Consider these factors when choosing between AWS and Azure:</p><ul><li>Your existing technology stack</li><li>Budget constraints</li><li>Compliance requirements</li><li>Team expertise</li><li>Geographic presence</li></ul>",
+          status: "published",
+          publishedAt: "2025-01-14T00:00:00.000Z",
+          readingTime: 10,
+          viewCount: 0,
+          isFeatured: true,
+          allowComments: true,
+          seoTitle: "AWS vs Azure: Complete Cloud Platform Comparison Guide",
+          seoDescription: "Compare AWS and Azure cloud platforms to choose the best solution for your business needs and requirements.",
+          seoKeywords: "AWS, Azure, cloud comparison, cloud platform, cloud services",
+          author: johnAuthor.id,
+          category: cloudCategory.id,
+          tags: [awsTag.id, azureTag.id]
+        }
+      });
+
+      // Article 4: DevOps Guide
+      await strapi.entityService.create("api::article.article", {
+        data: {
+          title: "DevOps Best Practices for Cloud Infrastructure",
+          slug: "devops-best-practices-cloud-infrastructure",
+          excerpt: "Learn essential DevOps practices for managing cloud infrastructure effectively.",
+          content: "<h2>What is DevOps?</h2><p>DevOps is a set of practices that combines software development and IT operations to shorten the development lifecycle and provide continuous delivery of high-quality software.</p><h2>Key DevOps Practices</h2><ul><li>Continuous Integration and Continuous Deployment (CI/CD)</li><li>Infrastructure as Code (IaC)</li><li>Monitoring and logging</li><li>Automated testing</li><li>Version control</li></ul><h2>Cloud-Native DevOps</h2><p>When working with cloud infrastructure, DevOps practices become even more important for managing scalability, reliability, and cost optimization.</p><h2>Implementation Strategy</h2><p>Start with small, incremental changes and gradually build your DevOps capabilities. Focus on automation and collaboration between development and operations teams.</p>",
+          status: "published",
+          publishedAt: "2025-01-13T00:00:00.000Z",
+          readingTime: 7,
+          viewCount: 0,
+          isFeatured: false,
+          allowComments: true,
+          seoTitle: "DevOps Best Practices: Cloud Infrastructure Management",
+          seoDescription: "Learn essential DevOps practices for managing cloud infrastructure effectively and efficiently.",
+          seoKeywords: "DevOps, cloud infrastructure, CI/CD, automation, cloud management",
+          author: mikeAuthor.id,
+          category: consultingCategory.id,
+          tags: [devopsTag.id, cloudTag.id]
+        }
+      });
+
+      // Article 5: Cost Optimization
+      await strapi.entityService.create("api::article.article", {
+        data: {
+          title: "Cost Optimization Strategies for Cloud Computing",
+          slug: "cost-optimization-strategies-cloud-computing",
+          excerpt: "Discover effective strategies to optimize your cloud computing costs without sacrificing performance.",
+          content: "<h2>Understanding Cloud Costs</h2><p>Cloud computing costs can quickly spiral out of control if not managed properly. Understanding the different cost components is the first step toward optimization.</p><h2>Cost Optimization Strategies</h2><ul><li>Right-sizing your instances</li><li>Using reserved instances</li><li>Implementing auto-scaling</li><li>Monitoring and alerting</li><li>Regular cost reviews</li></ul><h2>Tools and Services</h2><p>Leverage cloud provider tools and third-party services to monitor and optimize your cloud spending effectively.</p><h2>Best Practices</h2><p>Establish cost governance policies, implement tagging strategies, and regularly review your cloud usage to ensure optimal cost management.</p>",
+          status: "published",
+          publishedAt: "2025-01-12T00:00:00.000Z",
+          readingTime: 9,
+          viewCount: 0,
+          isFeatured: false,
+          allowComments: true,
+          seoTitle: "Cloud Cost Optimization: Strategies to Reduce Spending",
+          seoDescription: "Learn effective strategies to optimize your cloud computing costs and maximize your return on investment.",
+          seoKeywords: "cloud costs, cost optimization, cloud management, AWS costs, Azure costs",
+          author: johnAuthor.id,
+          category: cloudCategory.id,
+          tags: [cloudTag.id]
+        }
+      });
+
+      console.log("✅ Articles created successfully!");
+    }
+
+    console.log("🎉 Sample blog data creation completed!");
+    console.log("📊 Final data: 6 tags, 3 authors, 5 articles");
 
   } catch (error) {
     console.log("⚠️ Error creating sample blog data:", error.message);
     console.log("📋 Error details:", error);
-    console.log("🔍 Full error object:", JSON.stringify(error, null, 2));
   }
 }
