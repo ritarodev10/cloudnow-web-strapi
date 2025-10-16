@@ -5,6 +5,7 @@ A comprehensive headless CMS for CloudNow's website and blog system, built with 
 ## 🚀 Quick Start
 
 ### Local Development
+
 ```bash
 # Install dependencies
 npm install
@@ -17,20 +18,24 @@ http://localhost:1337/admin
 ```
 
 ### Production
+
 - **Admin Panel**: https://meaningful-action-d510b21940.strapiapp.com/admin
 - **API Base URL**: https://meaningful-action-d510b21940.strapiapp.com/api
 
 ## 📚 API Endpoints
 
 ### Global Settings
+
 Manage site-wide configuration including header and footer.
 
 #### Get Global Settings
+
 ```http
 GET /api/global-settings
 ```
 
 **Response:**
+
 ```json
 {
   "data": {
@@ -96,14 +101,17 @@ GET /api/global-settings
 ## 📝 Blog API
 
 ### Articles
+
 Manage blog articles with full content, SEO, and relationships.
 
 #### Get All Articles
+
 ```http
 GET /api/articles
 ```
 
 **Query Parameters:**
+
 - `populate=*` - Include all relationships
 - `filters[status][$eq]=published` - Filter by status
 - `filters[isFeatured][$eq]=true` - Get featured articles
@@ -113,6 +121,7 @@ GET /api/articles
 - `pagination[page]=1&pagination[pageSize]=10` - Pagination
 
 **Response:**
+
 ```json
 {
   "data": [
@@ -191,11 +200,13 @@ GET /api/articles
 ```
 
 #### Get Single Article
+
 ```http
 GET /api/articles/:id
 ```
 
 #### Get Article by Slug
+
 ```http
 GET /api/articles?filters[slug][$eq]=getting-started-cloud-migration-complete-guide
 ```
@@ -203,14 +214,17 @@ GET /api/articles?filters[slug][$eq]=getting-started-cloud-migration-complete-gu
 ---
 
 ### Categories
+
 Organize articles by topics and themes.
 
 #### Get All Categories
+
 ```http
 GET /api/categories
 ```
 
 **Response:**
+
 ```json
 {
   "data": [
@@ -243,6 +257,7 @@ GET /api/categories
 ```
 
 #### Get Single Category
+
 ```http
 GET /api/categories/:id
 ```
@@ -250,14 +265,17 @@ GET /api/categories/:id
 ---
 
 ### Tags
+
 Label and filter content with flexible tagging system.
 
 #### Get All Tags
+
 ```http
 GET /api/tags
 ```
 
 **Response:**
+
 ```json
 {
   "data": [
@@ -287,6 +305,7 @@ GET /api/tags
 ```
 
 #### Get Single Tag
+
 ```http
 GET /api/tags/:id
 ```
@@ -294,14 +313,17 @@ GET /api/tags/:id
 ---
 
 ### Authors
+
 Manage content creators and their profiles.
 
 #### Get All Authors
+
 ```http
 GET /api/authors
 ```
 
 **Response:**
+
 ```json
 {
   "data": [
@@ -353,6 +375,7 @@ GET /api/authors
 ```
 
 #### Get Single Author
+
 ```http
 GET /api/authors/:id
 ```
@@ -361,15 +384,18 @@ GET /api/authors/:id
 
 ## 👥 User Management API
 
-### User Staff
-Manage staff members and their roles.
+### Users (Built-in Strapi)
 
-#### Get All User Staff
+Manage users using Strapi's built-in Users & Permissions plugin.
+
+#### Get All Users
+
 ```http
-GET /api/user-staffs
+GET /api/users
 ```
 
 **Response:**
+
 ```json
 {
   "data": [
@@ -378,23 +404,17 @@ GET /api/user-staffs
       "attributes": {
         "username": "admin",
         "email": "admin@cloudnowservices.com",
-        "firstName": "Admin",
-        "lastName": "User",
-        "department": "IT",
-        "position": "System Administrator",
-        "isActive": true,
-        "joinedAt": "2025-01-16T07:00:00.000Z",
-        "lastLoginAt": null,
-        "avatar": {
-          "data": null
-        },
-        "userRole": {
+        "confirmed": true,
+        "blocked": false,
+        "createdAt": "2025-01-16T07:00:00.000Z",
+        "updatedAt": "2025-01-16T07:00:00.000Z",
+        "role": {
           "data": {
             "id": 1,
             "attributes": {
               "name": "Admin",
-              "slug": "admin",
-              "description": "Full access to all features"
+              "description": "Full access to all features",
+              "type": "admin_custom"
             }
           }
         },
@@ -414,46 +434,48 @@ GET /api/user-staffs
 }
 ```
 
-### User Roles
-Manage permissions and access levels.
+### Roles (Built-in Strapi)
 
-#### Get All User Roles
+Manage user roles using Strapi's built-in Users & Permissions plugin.
+
+#### Get All Roles
+
 ```http
-GET /api/user-roles
+GET /api/users-permissions/roles
 ```
 
 **Response:**
+
 ```json
 {
-  "data": [
+  "roles": [
     {
       "id": 1,
-      "attributes": {
-        "name": "Admin",
-        "slug": "admin",
-        "description": "Full access to all features",
-        "permissions": {
-          "articles": { "create": true, "read": true, "update": true, "delete": true },
-          "categories": { "create": true, "read": true, "update": true, "delete": true },
-          "tags": { "create": true, "read": true, "update": true, "delete": true },
-          "authors": { "create": true, "read": true, "update": true, "delete": true }
-        },
-        "isActive": true,
-        "isDefault": true,
-        "sortOrder": 1,
-        "userStaffs": {
-          "data": [
-            {
-              "id": 1,
-              "attributes": {
-                "username": "admin",
-                "firstName": "Admin",
-                "lastName": "User"
-              }
-            }
-          ]
-        }
-      }
+      "name": "Admin",
+      "description": "Full access to all features",
+      "type": "admin_custom",
+      "permissions": []
+    },
+    {
+      "id": 2,
+      "name": "Editor",
+      "description": "Can create and edit articles",
+      "type": "editor_custom",
+      "permissions": []
+    },
+    {
+      "id": 3,
+      "name": "Authenticated",
+      "description": "Default role given to authenticated user.",
+      "type": "authenticated",
+      "permissions": []
+    },
+    {
+      "id": 4,
+      "name": "Public",
+      "description": "Default role given to unauthenticated user.",
+      "type": "public",
+      "permissions": []
     }
   ]
 }
@@ -464,26 +486,31 @@ GET /api/user-roles
 ## 🔍 Advanced Queries
 
 ### Filter Articles by Multiple Criteria
+
 ```http
 GET /api/articles?filters[status][$eq]=published&filters[isFeatured][$eq]=true&filters[category][slug][$eq]=cloud-computing&sort=publishedAt:desc&pagination[pageSize]=5
 ```
 
 ### Search Articles by Title
+
 ```http
 GET /api/articles?filters[title][$containsi]=cloud
 ```
 
 ### Get Articles by Author
+
 ```http
 GET /api/articles?filters[author][slug][$eq]=admin-user&populate=*
 ```
 
 ### Get Related Articles
+
 ```http
 GET /api/articles?filters[tags][slug][$in]=aws,azure&populate[relatedArticles]=true
 ```
 
 ### Get Category with Article Count
+
 ```http
 GET /api/categories?populate[articles][fields][0]=title&populate[articles][fields][1]=slug
 ```
@@ -495,12 +522,15 @@ GET /api/categories?populate[articles][fields][0]=title&populate[articles][field
 The system comes pre-populated with sample data:
 
 ### Articles (3)
+
 1. **Getting Started with Cloud Migration: A Complete Guide**
+
    - Category: Cloud Computing
    - Tags: AWS, Migration
    - Author: Admin User
 
 2. **Cybersecurity Best Practices for Small Businesses**
+
    - Category: Security
    - Tags: Security
    - Author: Content Editor
@@ -511,21 +541,30 @@ The system comes pre-populated with sample data:
    - Author: Admin User
 
 ### Categories (3)
+
 - Cloud Computing (#3B82F6)
 - Security (#EF4444)
 - IT Consulting (#10B981)
 
 ### Tags (4)
+
 - AWS (#FF9900)
 - Azure (#0078D4)
 - Security (#DC2626)
 - Migration (#7C3AED)
 
 ### Authors (2)
+
 - Admin User (System Administrator)
 - Content Editor (Content Manager)
 
-### User Roles (2)
+### Users (2)
+
+- admin@cloudnowservices.com (Admin role)
+- editor@cloudnowservices.com (Editor role)
+
+### Custom Roles (2)
+
 - Admin (Full access)
 - Editor (Limited access)
 
@@ -534,17 +573,22 @@ The system comes pre-populated with sample data:
 ## 🔐 Authentication & Permissions
 
 ### Public Access
+
 All read operations (`GET`) are publicly accessible:
+
 - Articles, Categories, Tags, Authors
 - Global Settings
 
 ### Admin Access
+
 Write operations require authentication:
+
 - Create, Update, Delete operations
 - User management
 - Content management
 
 ### Role-Based Permissions
+
 - **Admin**: Full CRUD access to all content
 - **Editor**: Create/Update articles and tags, read-only for categories and authors
 
@@ -553,13 +597,16 @@ Write operations require authentication:
 ## 🛠️ Development
 
 ### Bootstrap Data
+
 The system automatically creates sample data on first startup via `src/bootstrap.ts`:
+
 - Global settings with CloudNow branding
 - Sample blog articles and metadata
 - User roles and staff accounts
 - API permissions configuration
 
 ### Content Types Structure
+
 ```
 src/api/
 ├── article/          # Blog articles
@@ -572,6 +619,7 @@ src/api/
 ```
 
 ### Components Structure
+
 ```
 src/components/
 ├── shared/           # Reusable components
@@ -591,6 +639,7 @@ src/components/
 ## 🚀 Deployment
 
 ### Environment Variables
+
 ```bash
 # Database
 DATABASE_CLIENT=sqlite
@@ -607,6 +656,7 @@ JWT_SECRET=your-jwt-secret
 ```
 
 ### Production Checklist
+
 - [ ] Configure database connection
 - [ ] Set secure JWT secrets
 - [ ] Configure CORS settings
@@ -619,6 +669,7 @@ JWT_SECRET=your-jwt-secret
 ## 📞 Support
 
 For technical support or questions about the CloudNow API:
+
 - **Email**: contact@cloudnowservices.com
 - **Website**: https://cloudnowservices.com
 - **Documentation**: This README file
@@ -631,4 +682,4 @@ This project is proprietary software owned by CloudNow Inc. All rights reserved.
 
 ---
 
-*Last updated: January 16, 2025*
+_Last updated: January 16, 2025_

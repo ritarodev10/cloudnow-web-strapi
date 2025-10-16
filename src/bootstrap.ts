@@ -385,71 +385,49 @@ async function createSampleBlogData(strapi) {
 
     console.log("🚀 Creating sample blog data...");
 
-    // Create User Roles
-    const adminRole = await strapi.entityService.create("api::user-role.user-role", {
+    // Create custom roles in Users & Permissions plugin
+    const adminRole = await strapi.query('plugin::users-permissions.role').create({
       data: {
         name: "Admin",
-        slug: "admin",
         description: "Full access to all features",
-        permissions: {
-          articles: { create: true, read: true, update: true, delete: true },
-          categories: { create: true, read: true, update: true, delete: true },
-          tags: { create: true, read: true, update: true, delete: true },
-          authors: { create: true, read: true, update: true, delete: true }
-        },
-        isActive: true,
-        isDefault: true,
-        sortOrder: 1
+        type: "admin_custom",
+        permissions: []
       }
     });
 
-    const editorRole = await strapi.entityService.create("api::user-role.user-role", {
+    const editorRole = await strapi.query('plugin::users-permissions.role').create({
       data: {
         name: "Editor",
-        slug: "editor",
         description: "Can create and edit articles",
-        permissions: {
-          articles: { create: true, read: true, update: true, delete: false },
-          categories: { create: false, read: true, update: false, delete: false },
-          tags: { create: true, read: true, update: true, delete: false },
-          authors: { create: false, read: true, update: false, delete: false }
-        },
-        isActive: true,
-        isDefault: false,
-        sortOrder: 2
+        type: "editor_custom",
+        permissions: []
       }
     });
 
-    // Create User Staff
-    const adminStaff = await strapi.entityService.create("api::user-staff.user-staff", {
+    // Create Users using Strapi's built-in user system
+    const adminUser = await strapi.query('plugin::users-permissions.user').create({
       data: {
         username: "admin",
         email: "admin@cloudnowservices.com",
-        firstName: "Admin",
-        lastName: "User",
-        department: "IT",
-        position: "System Administrator",
-        isActive: true,
-        joinedAt: new Date(),
-        userRole: adminRole.id
+        password: "CloudNow2025!",
+        confirmed: true,
+        blocked: false,
+        role: adminRole.id
       }
     });
 
-    const editorStaff = await strapi.entityService.create("api::user-staff.user-staff", {
+    const editorUser = await strapi.query('plugin::users-permissions.user').create({
       data: {
         username: "editor",
         email: "editor@cloudnowservices.com",
-        firstName: "Content",
-        lastName: "Editor",
-        department: "Marketing",
-        position: "Content Manager",
-        isActive: true,
-        joinedAt: new Date(),
-        userRole: editorRole.id
+        password: "Editor2025!",
+        confirmed: true,
+        blocked: false,
+        role: editorRole.id
       }
     });
 
-    // Create Authors
+    // Create Authors linked to Strapi users
     const adminAuthor = await strapi.entityService.create("api::author.author", {
       data: {
         firstName: "Admin",
@@ -465,7 +443,7 @@ async function createSampleBlogData(strapi) {
         isActive: true,
         joinedAt: new Date(),
         articlesCount: 0,
-        userStaff: adminStaff.id
+        user: adminUser.id
       }
     });
 
@@ -483,7 +461,7 @@ async function createSampleBlogData(strapi) {
         isActive: true,
         joinedAt: new Date(),
         articlesCount: 0,
-        userStaff: editorStaff.id
+        user: editorUser.id
       }
     });
 
@@ -663,7 +641,7 @@ async function createSampleBlogData(strapi) {
     });
 
     console.log("✅ Sample blog data created successfully!");
-    console.log(`📝 Created ${3} articles, ${3} categories, ${4} tags, ${2} authors, ${2} user staff, ${2} user roles`);
+    console.log(`📝 Created ${3} articles, ${3} categories, ${4} tags, ${2} authors, ${2} users, ${2} custom roles`);
 
   } catch (error) {
     console.log("⚠️ Error creating sample blog data:", error.message);

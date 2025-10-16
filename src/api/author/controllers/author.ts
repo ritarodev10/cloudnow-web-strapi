@@ -4,10 +4,9 @@ export default {
       ...ctx.query,
       populate: {
         avatar: true,
-        userStaff: {
+        user: {
           populate: {
-            avatar: true,
-            userRole: true
+            role: true
           }
         },
         articles: {
@@ -28,10 +27,9 @@ export default {
       ...ctx.query,
       populate: {
         avatar: true,
-        userStaff: {
+        user: {
           populate: {
-            avatar: true,
-            userRole: true
+            role: true
           }
         },
         articles: {
@@ -51,7 +49,7 @@ export default {
       ...ctx.request.body,
       populate: {
         avatar: true,
-        userStaff: true
+        user: true
       }
     });
     return entity;
@@ -63,7 +61,7 @@ export default {
       ...ctx.request.body,
       populate: {
         avatar: true,
-        userStaff: true
+        user: true
       }
     });
     return entity;

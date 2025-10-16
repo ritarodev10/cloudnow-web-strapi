@@ -62,10 +62,10 @@
       "default": 0,
       "min": 0
     },
-    "userStaff": {
+    "user": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::user-staff.user-staff",
+      "target": "plugin::users-permissions.user",
       "inversedBy": "author"
     },
     "articles": {
