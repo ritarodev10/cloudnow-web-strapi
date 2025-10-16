@@ -6,14 +6,14 @@ export interface CompanyCompanyContact extends Struct.ComponentSchema {
     displayName: 'Company Contact';
   };
   attributes: {
-    email: Schema.Attribute.Component<'forms.contact-form-item', false>;
-    phoneNumbers: Schema.Attribute.Component<'forms.contact-form-item', true>;
+    email: Schema.Attribute.Component<'company.contact-info-item', false>;
+    phoneNumbers: Schema.Attribute.Component<'company.contact-info-item', true>;
     showEmail: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     showPhoneNumbers: Schema.Attribute.Boolean &
       Schema.Attribute.DefaultTo<true>;
     showSocialLinks: Schema.Attribute.Boolean &
       Schema.Attribute.DefaultTo<true>;
-    socialLinks: Schema.Attribute.Component<'forms.contact-form-item', true>;
+    socialLinks: Schema.Attribute.Component<'company.contact-info-item', true>;
   };
 }
 
@@ -74,6 +74,28 @@ export interface CompanyCompanyOffices extends Struct.ComponentSchema {
   };
 }
 
+export interface CompanyContactInfoItem extends Struct.ComponentSchema {
+  collectionName: 'components_company_contact_info_items';
+  info: {
+    displayName: 'Contact Info Item';
+  };
+  attributes: {
+    href: Schema.Attribute.String;
+    icon: Schema.Attribute.Media<'images'>;
+    iconType: Schema.Attribute.Enumeration<
+      ['phone', 'email', 'linkedin', 'location', 'custom']
+    > &
+      Schema.Attribute.DefaultTo<'custom'>;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    isExternal: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    showIcon: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    target: Schema.Attribute.Enumeration<['_self', '_blank']> &
+      Schema.Attribute.DefaultTo<'_self'>;
+    value: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface CompanyOfficeLocation extends Struct.ComponentSchema {
   collectionName: 'components_company_office_locations';
   info: {
@@ -96,27 +118,6 @@ export interface ContentLegalLinks extends Struct.ComponentSchema {
   attributes: {
     links: Schema.Attribute.Component<'shared.link', true>;
     showSeparator: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-  };
-}
-
-export interface FormsContactFormItem extends Struct.ComponentSchema {
-  collectionName: 'components_forms_contact_form_items';
-  info: {
-    displayName: 'Contact Form Item';
-  };
-  attributes: {
-    href: Schema.Attribute.String;
-    icon: Schema.Attribute.Media<'images'>;
-    iconType: Schema.Attribute.Enumeration<
-      ['phone', 'email', 'linkedin', 'location', 'custom']
-    > &
-      Schema.Attribute.DefaultTo<'custom'>;
-    isExternal: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    label: Schema.Attribute.String & Schema.Attribute.Required;
-    showIcon: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    target: Schema.Attribute.Enumeration<['_self', '_blank']> &
-      Schema.Attribute.DefaultTo<'_self'>;
-    value: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -154,6 +155,12 @@ export interface LayoutFooter extends Struct.ComponentSchema {
     newsletter: Schema.Attribute.Component<'forms.newsletter-signup', false>;
     offices: Schema.Attribute.Component<'company.company-offices', false>;
     quickLinks: Schema.Attribute.Component<'navigation.quick-links', false>;
+    showBottomBar: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    showCompanyInfo: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<true>;
+    showNewsletter: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    showOffices: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    showQuickLinks: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
   };
 }
 
@@ -327,9 +334,9 @@ declare module '@strapi/strapi' {
       'company.company-info': CompanyCompanyInfo;
       'company.company-logo': CompanyCompanyLogo;
       'company.company-offices': CompanyCompanyOffices;
+      'company.contact-info-item': CompanyContactInfoItem;
       'company.office-location': CompanyOfficeLocation;
       'content.legal-links': ContentLegalLinks;
-      'forms.contact-form-item': FormsContactFormItem;
       'forms.newsletter-signup': FormsNewsletterSignup;
       'layout.footer': LayoutFooter;
       'layout.header': LayoutHeader;
