@@ -176,6 +176,25 @@ export interface LayoutHeader extends Struct.ComponentSchema {
   };
 }
 
+export interface NavigationDropdownItem extends Struct.ComponentSchema {
+  collectionName: 'components_navigation_dropdown_items';
+  info: {
+    displayName: 'Dropdown Item';
+  };
+  attributes: {
+    ariaLabel: Schema.Attribute.String;
+    href: Schema.Attribute.String;
+    icon: Schema.Attribute.Media<'images'>;
+    iconPosition: Schema.Attribute.Enumeration<['left', 'right', 'none']> &
+      Schema.Attribute.DefaultTo<'none'>;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    isExternal: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    target: Schema.Attribute.Enumeration<['_self', '_blank']> &
+      Schema.Attribute.DefaultTo<'_self'>;
+  };
+}
+
 export interface NavigationNavigationItem extends Struct.ComponentSchema {
   collectionName: 'components_navigation_navigation_items';
   info: {
@@ -183,10 +202,7 @@ export interface NavigationNavigationItem extends Struct.ComponentSchema {
   };
   attributes: {
     ariaLabel: Schema.Attribute.String;
-    dropdownItems: Schema.Attribute.Component<
-      'navigation.navigation-item',
-      true
-    >;
+    dropdownItems: Schema.Attribute.Component<'navigation.dropdown-item', true>;
     hasDropdown: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     href: Schema.Attribute.String;
     icon: Schema.Attribute.Media<'images'>;
@@ -340,6 +356,7 @@ declare module '@strapi/strapi' {
       'forms.newsletter-signup': FormsNewsletterSignup;
       'layout.footer': LayoutFooter;
       'layout.header': LayoutHeader;
+      'navigation.dropdown-item': NavigationDropdownItem;
       'navigation.navigation-item': NavigationNavigationItem;
       'navigation.quick-links': NavigationQuickLinks;
       'shared.base-link': SharedBaseLink;

@@ -5,86 +5,43 @@ export default {
       populate: {
         header: {
           populate: {
-            logo: {
-              populate: {
-                logoImage: true,
-                cloudIcon: true
-              }
-            },
+            logo: true,
             navigation: {
               populate: {
-                icon: true,
-                dropdownItems: {
-                  populate: {
-                    icon: true
-                  }
-                }
+                dropdownItems: true
               }
             },
-            ctaButton: {
-              populate: {
-                icon: true
-              }
-            }
+            ctaButton: true
           }
         },
         footer: {
           populate: {
             companyInfo: {
               populate: {
-                logo: {
-                  populate: {
-                    logoImage: true,
-                    cloudIcon: true
-                  }
-                }
+                logo: true
               }
             },
             offices: {
               populate: {
-                offices: {
-                  populate: {
-                    icon: true
-                  }
-                },
+                offices: true,
                 contactInfo: {
                   populate: {
-                    phoneNumbers: {
-                      populate: {
-                        icon: true
-                      }
-                    },
-                    email: {
-                      populate: {
-                        icon: true
-                      }
-                    },
-                    socialLinks: {
-                      populate: {
-                        icon: true
-                      }
-                    }
+                    phoneNumbers: true,
+                    email: true,
+                    socialLinks: true
                   }
                 }
               }
             },
             quickLinks: {
               populate: {
-                links: {
-                  populate: {
-                    icon: true
-                  }
-                }
+                links: true
               }
             },
             newsletter: true,
             bottomBar: {
               populate: {
-                links: {
-                  populate: {
-                    icon: true
-                  }
-                }
+                links: true
               }
             }
           }
@@ -101,86 +58,43 @@ export default {
       populate: {
         header: {
           populate: {
-            logo: {
-              populate: {
-                logoImage: true,
-                cloudIcon: true
-              }
-            },
+            logo: true,
             navigation: {
               populate: {
-                icon: true,
-                dropdownItems: {
-                  populate: {
-                    icon: true
-                  }
-                }
+                dropdownItems: true
               }
             },
-            ctaButton: {
-              populate: {
-                icon: true
-              }
-            }
+            ctaButton: true
           }
         },
         footer: {
           populate: {
             companyInfo: {
               populate: {
-                logo: {
-                  populate: {
-                    logoImage: true,
-                    cloudIcon: true
-                  }
-                }
+                logo: true
               }
             },
             offices: {
               populate: {
-                offices: {
-                  populate: {
-                    icon: true
-                  }
-                },
+                offices: true,
                 contactInfo: {
                   populate: {
-                    phoneNumbers: {
-                      populate: {
-                        icon: true
-                      }
-                    },
-                    email: {
-                      populate: {
-                        icon: true
-                      }
-                    },
-                    socialLinks: {
-                      populate: {
-                        icon: true
-                      }
-                    }
+                    phoneNumbers: true,
+                    email: true,
+                    socialLinks: true
                   }
                 }
               }
             },
             quickLinks: {
               populate: {
-                links: {
-                  populate: {
-                    icon: true
-                  }
-                }
+                links: true
               }
             },
             newsletter: true,
             bottomBar: {
               populate: {
-                links: {
-                  populate: {
-                    icon: true
-                  }
-                }
+                links: true
               }
             }
           }
@@ -192,8 +106,52 @@ export default {
 
   async create(ctx) {
     const entity = await strapi.entityService.create('api::global-setting.global-setting', {
-      data: ctx.request.body,
-      ...ctx.query,
+      ...ctx.request.body,
+      populate: {
+        header: {
+          populate: {
+            logo: true,
+            navigation: {
+              populate: {
+                dropdownItems: true
+              }
+            },
+            ctaButton: true
+          }
+        },
+        footer: {
+          populate: {
+            companyInfo: {
+              populate: {
+                logo: true
+              }
+            },
+            offices: {
+              populate: {
+                offices: true,
+                contactInfo: {
+                  populate: {
+                    phoneNumbers: true,
+                    email: true,
+                    socialLinks: true
+                  }
+                }
+              }
+            },
+            quickLinks: {
+              populate: {
+                links: true
+              }
+            },
+            newsletter: true,
+            bottomBar: {
+              populate: {
+                links: true
+              }
+            }
+          }
+        }
+      }
     });
     return entity;
   },
@@ -201,17 +159,59 @@ export default {
   async update(ctx) {
     const { id } = ctx.params;
     const entity = await strapi.entityService.update('api::global-setting.global-setting', id, {
-      data: ctx.request.body,
-      ...ctx.query,
+      ...ctx.request.body,
+      populate: {
+        header: {
+          populate: {
+            logo: true,
+            navigation: {
+              populate: {
+                dropdownItems: true
+              }
+            },
+            ctaButton: true
+          }
+        },
+        footer: {
+          populate: {
+            companyInfo: {
+              populate: {
+                logo: true
+              }
+            },
+            offices: {
+              populate: {
+                offices: true,
+                contactInfo: {
+                  populate: {
+                    phoneNumbers: true,
+                    email: true,
+                    socialLinks: true
+                  }
+                }
+              }
+            },
+            quickLinks: {
+              populate: {
+                links: true
+              }
+            },
+            newsletter: true,
+            bottomBar: {
+              populate: {
+                links: true
+              }
+            }
+          }
+        }
+      }
     });
     return entity;
   },
 
   async delete(ctx) {
     const { id } = ctx.params;
-    const entity = await strapi.entityService.delete('api::global-setting.global-setting', id, {
-      ...ctx.query,
-    });
+    const entity = await strapi.entityService.delete('api::global-setting.global-setting', id);
     return entity;
   },
 };
