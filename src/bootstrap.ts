@@ -375,19 +375,6 @@ export default async ({ strapi }) => {
 
 async function createSampleBlogData(strapi) {
   try {
-    // Check existing data - simplified to avoid relationship errors
-    const existingArticles = await strapi.entityService.findMany("api::article.article");
-    const existingTags = await strapi.entityService.findMany("api::tag.tag");
-    const existingCategories = await strapi.entityService.findMany("api::category.category");
-    const existingAuthors = await strapi.entityService.findMany("api::author.author");
-    
-    console.log(`📊 Current data: ${existingArticles.length} articles, ${existingTags.length} tags, ${existingCategories.length} categories, ${existingAuthors.length} authors`);
-    
-    if (existingArticles.length > 0 && existingTags.length > 0) {
-      console.log("ℹ️ Blog data already exists, skipping creation.");
-      return;
-    }
-
     console.log("🚀 Creating sample blog data...");
 
     // Skip user creation for now - just create tags and articles
