@@ -8,17 +8,17 @@
     "phoneNumbers": {
       "type": "component",
       "repeatable": true,
-      "component": "forms.contact-form-item"
+      "component": "company.contact-info-item"
     },
     "email": {
       "type": "component",
       "repeatable": false,
-      "component": "forms.contact-form-item"
+      "component": "company.contact-info-item"
     },
     "socialLinks": {
       "type": "component",
       "repeatable": true,
-      "component": "forms.contact-form-item"
+      "component": "company.contact-info-item"
     },
     "showPhoneNumbers": {
       "type": "boolean",

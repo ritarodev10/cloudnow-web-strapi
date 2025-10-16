@@ -1,7 +1,7 @@
 {
-  "collectionName": "components_forms_contact_form_items",
+  "collectionName": "components_company_contact_info_items",
   "info": {
-    "displayName": "Contact Form Item"
+    "displayName": "Contact Info Item"
   },
   "options": {},
   "attributes": {
@@ -36,6 +36,10 @@
       "default": "_self"
     },
     "showIcon": {
+      "type": "boolean",
+      "default": true
+    },
+    "isActive": {
       "type": "boolean",
       "default": true
     }

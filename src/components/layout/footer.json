@@ -10,25 +10,45 @@
       "repeatable": false,
       "component": "company.company-info"
     },
+    "showCompanyInfo": {
+      "type": "boolean",
+      "default": true
+    },
     "offices": {
       "type": "component",
       "repeatable": false,
       "component": "company.company-offices"
+    },
+    "showOffices": {
+      "type": "boolean",
+      "default": true
     },
     "quickLinks": {
       "type": "component",
       "repeatable": false,
       "component": "navigation.quick-links"
     },
+    "showQuickLinks": {
+      "type": "boolean",
+      "default": true
+    },
     "newsletter": {
       "type": "component",
       "repeatable": false,
       "component": "forms.newsletter-signup"
     },
+    "showNewsletter": {
+      "type": "boolean",
+      "default": true
+    },
     "bottomBar": {
       "type": "component",
       "repeatable": false,
       "component": "content.legal-links"
+    },
+    "showBottomBar": {
+      "type": "boolean",
+      "default": true
     }
   },
   "config": {}
