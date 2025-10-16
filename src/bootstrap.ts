@@ -369,8 +369,9 @@ export default async ({ strapi }) => {
     console.log("ℹ️ Global settings already exist, skipping creation.");
   }
 
-  // Create sample blog data
-  await createSampleBlogData(strapi);
+  // Create sample blog data - DISABLED due to relationship errors
+  // Use sample-data folder for manual import instead
+  // await createSampleBlogData(strapi);
 };
 
 async function createSampleBlogData(strapi) {

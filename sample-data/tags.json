@@ -1,0 +1,50 @@
+[
+  {
+    "name": "AWS",
+    "slug": "aws",
+    "description": "Amazon Web Services related content",
+    "color": "#FF9900",
+    "isActive": true,
+    "usageCount": 0
+  },
+  {
+    "name": "Azure",
+    "slug": "azure",
+    "description": "Microsoft Azure related content",
+    "color": "#0078D4",
+    "isActive": true,
+    "usageCount": 0
+  },
+  {
+    "name": "Security",
+    "slug": "security",
+    "description": "Security and compliance related content",
+    "color": "#DC2626",
+    "isActive": true,
+    "usageCount": 0
+  },
+  {
+    "name": "Migration",
+    "slug": "migration",
+    "description": "Cloud migration strategies and best practices",
+    "color": "#7C3AED",
+    "isActive": true,
+    "usageCount": 0
+  },
+  {
+    "name": "DevOps",
+    "slug": "devops",
+    "description": "DevOps practices and tools",
+    "color": "#059669",
+    "isActive": true,
+    "usageCount": 0
+  },
+  {
+    "name": "Cloud Computing",
+    "slug": "cloud-computing",
+    "description": "General cloud computing topics",
+    "color": "#3B82F6",
+    "isActive": true,
+    "usageCount": 0
+  }
+]
