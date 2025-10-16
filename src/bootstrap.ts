@@ -394,12 +394,12 @@ async function createSampleBlogData(strapi) {
     console.log("📝 Creating tags and articles without user links...");
 
     // Get existing categories (they already exist)
-    const existingCategories = await strapi.entityService.findMany("api::category.category");
-    const cloudCategory = existingCategories.find(cat => cat.slug === "cloud-computing");
-    const securityCategory = existingCategories.find(cat => cat.slug === "security");
-    const consultingCategory = existingCategories.find(cat => cat.slug === "it-consulting");
+    const allCategories = await strapi.entityService.findMany("api::category.category");
+    const cloudCategory = allCategories.find(cat => cat.slug === "cloud-computing");
+    const securityCategory = allCategories.find(cat => cat.slug === "security");
+    const consultingCategory = allCategories.find(cat => cat.slug === "it-consulting");
 
-    console.log(`📂 Found ${existingCategories.length} existing categories`);
+    console.log(`📂 Found ${allCategories.length} existing categories`);
 
     // Create Tags
     const awsTag = await strapi.entityService.create("api::tag.tag", {
