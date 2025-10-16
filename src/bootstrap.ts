@@ -376,18 +376,10 @@ export default async ({ strapi }) => {
 async function createSampleBlogData(strapi) {
   try {
     // Check existing data - simplified to avoid relationship errors
-    const existingArticles = await strapi.entityService.findMany("api::article.article", {
-      populate: false
-    });
-    const existingTags = await strapi.entityService.findMany("api::tag.tag", {
-      populate: false
-    });
-    const existingCategories = await strapi.entityService.findMany("api::category.category", {
-      populate: false
-    });
-    const existingAuthors = await strapi.entityService.findMany("api::author.author", {
-      populate: false
-    });
+    const existingArticles = await strapi.entityService.findMany("api::article.article");
+    const existingTags = await strapi.entityService.findMany("api::tag.tag");
+    const existingCategories = await strapi.entityService.findMany("api::category.category");
+    const existingAuthors = await strapi.entityService.findMany("api::author.author");
     
     console.log(`📊 Current data: ${existingArticles.length} articles, ${existingTags.length} tags, ${existingCategories.length} categories, ${existingAuthors.length} authors`);
     
@@ -402,9 +394,7 @@ async function createSampleBlogData(strapi) {
     console.log("📝 Creating tags and articles without user links...");
 
     // Get existing categories (they already exist)
-    const allCategories = await strapi.entityService.findMany("api::category.category", {
-      populate: false
-    });
+    const allCategories = await strapi.entityService.findMany("api::category.category");
     const cloudCategory = allCategories.find(cat => cat.slug === "cloud-computing");
     const securityCategory = allCategories.find(cat => cat.slug === "security");
     const consultingCategory = allCategories.find(cat => cat.slug === "it-consulting");
