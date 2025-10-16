@@ -1,0 +1,78 @@
+{
+  "kind": "collectionType",
+  "collectionName": "authors",
+  "info": {
+    "singularName": "author",
+    "pluralName": "authors",
+    "displayName": "Author",
+    "description": "Article authors linked to user staff"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "firstName": {
+      "type": "string",
+      "required": true,
+      "maxLength": 50
+    },
+    "lastName": {
+      "type": "string",
+      "required": true,
+      "maxLength": 50
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "firstName",
+      "required": true
+    },
+    "bio": {
+      "type": "text",
+      "maxLength": 1000
+    },
+    "avatar": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "email": {
+      "type": "email",
+      "required": true,
+      "unique": true
+    },
+    "website": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "socialLinks": {
+      "type": "json"
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true
+    },
+    "joinedAt": {
+      "type": "datetime",
+      "required": true
+    },
+    "articlesCount": {
+      "type": "integer",
+      "default": 0,
+      "min": 0
+    },
+    "userStaff": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::user-staff.user-staff",
+      "inversedBy": "author"
+    },
+    "articles": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::article.article",
+      "mappedBy": "author"
+    }
+  }
+}

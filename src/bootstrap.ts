@@ -1,16 +1,48 @@
 export default async ({ strapi }) => {
-  // Configure API permissions for global-settings
+  // Configure API permissions for all content types
   try {
     const publicRole = await strapi.query('plugin::users-permissions.role').findOne({
       where: { type: 'public' }
     });
 
     if (publicRole) {
-      const globalSettingPermissions = {
+      const permissions = {
         ...publicRole.permissions,
         'api::global-setting.global-setting': {
           controllers: {
             'global-setting': {
+              find: { enabled: true },
+              findOne: { enabled: true }
+            }
+          }
+        },
+        'api::article.article': {
+          controllers: {
+            'article': {
+              find: { enabled: true },
+              findOne: { enabled: true }
+            }
+          }
+        },
+        'api::category.category': {
+          controllers: {
+            'category': {
+              find: { enabled: true },
+              findOne: { enabled: true }
+            }
+          }
+        },
+        'api::tag.tag': {
+          controllers: {
+            'tag': {
+              find: { enabled: true },
+              findOne: { enabled: true }
+            }
+          }
+        },
+        'api::author.author': {
+          controllers: {
+            'author': {
               find: { enabled: true },
               findOne: { enabled: true }
             }
@@ -20,10 +52,10 @@ export default async ({ strapi }) => {
 
       await strapi.query('plugin::users-permissions.role').update({
         where: { id: publicRole.id },
-        data: { permissions: globalSettingPermissions }
+        data: { permissions }
       });
 
-      console.log("✅ Global-settings API permissions configured for public access");
+      console.log("✅ API permissions configured for public access");
     }
   } catch (error) {
     console.log("⚠️ Could not configure permissions automatically:", error.message);
@@ -336,4 +368,304 @@ export default async ({ strapi }) => {
   } else {
     console.log("ℹ️ Global settings already exist, skipping creation.");
   }
+
+  // Create sample blog data
+  await createSampleBlogData(strapi);
 };
+
+async function createSampleBlogData(strapi) {
+  try {
+    // Check if blog data already exists
+    const existingArticles = await strapi.entityService.findMany("api::article.article");
+    
+    if (existingArticles.length > 0) {
+      console.log("ℹ️ Blog data already exists, skipping creation.");
+      return;
+    }
+
+    console.log("🚀 Creating sample blog data...");
+
+    // Create User Roles
+    const adminRole = await strapi.entityService.create("api::user-role.user-role", {
+      data: {
+        name: "Admin",
+        slug: "admin",
+        description: "Full access to all features",
+        permissions: {
+          articles: { create: true, read: true, update: true, delete: true },
+          categories: { create: true, read: true, update: true, delete: true },
+          tags: { create: true, read: true, update: true, delete: true },
+          authors: { create: true, read: true, update: true, delete: true }
+        },
+        isActive: true,
+        isDefault: true,
+        sortOrder: 1
+      }
+    });
+
+    const editorRole = await strapi.entityService.create("api::user-role.user-role", {
+      data: {
+        name: "Editor",
+        slug: "editor",
+        description: "Can create and edit articles",
+        permissions: {
+          articles: { create: true, read: true, update: true, delete: false },
+          categories: { create: false, read: true, update: false, delete: false },
+          tags: { create: true, read: true, update: true, delete: false },
+          authors: { create: false, read: true, update: false, delete: false }
+        },
+        isActive: true,
+        isDefault: false,
+        sortOrder: 2
+      }
+    });
+
+    // Create User Staff
+    const adminStaff = await strapi.entityService.create("api::user-staff.user-staff", {
+      data: {
+        username: "admin",
+        email: "admin@cloudnowservices.com",
+        firstName: "Admin",
+        lastName: "User",
+        department: "IT",
+        position: "System Administrator",
+        isActive: true,
+        joinedAt: new Date(),
+        userRole: adminRole.id
+      }
+    });
+
+    const editorStaff = await strapi.entityService.create("api::user-staff.user-staff", {
+      data: {
+        username: "editor",
+        email: "editor@cloudnowservices.com",
+        firstName: "Content",
+        lastName: "Editor",
+        department: "Marketing",
+        position: "Content Manager",
+        isActive: true,
+        joinedAt: new Date(),
+        userRole: editorRole.id
+      }
+    });
+
+    // Create Authors
+    const adminAuthor = await strapi.entityService.create("api::author.author", {
+      data: {
+        firstName: "Admin",
+        lastName: "User",
+        slug: "admin-user",
+        bio: "System administrator and technical writer for CloudNow.",
+        email: "admin@cloudnowservices.com",
+        website: "https://cloudnowservices.com",
+        socialLinks: {
+          linkedin: "https://linkedin.com/in/admin-cloudnow",
+          twitter: "https://twitter.com/cloudnow_admin"
+        },
+        isActive: true,
+        joinedAt: new Date(),
+        articlesCount: 0,
+        userStaff: adminStaff.id
+      }
+    });
+
+    const editorAuthor = await strapi.entityService.create("api::author.author", {
+      data: {
+        firstName: "Content",
+        lastName: "Editor",
+        slug: "content-editor",
+        bio: "Content manager and technical writer specializing in cloud technologies.",
+        email: "editor@cloudnowservices.com",
+        website: "https://cloudnowservices.com",
+        socialLinks: {
+          linkedin: "https://linkedin.com/in/editor-cloudnow"
+        },
+        isActive: true,
+        joinedAt: new Date(),
+        articlesCount: 0,
+        userStaff: editorStaff.id
+      }
+    });
+
+    // Create Categories
+    const cloudCategory = await strapi.entityService.create("api::category.category", {
+      data: {
+        name: "Cloud Computing",
+        slug: "cloud-computing",
+        description: "Articles about cloud technologies, services, and best practices",
+        color: "#3B82F6",
+        isActive: true,
+        sortOrder: 1,
+        seoTitle: "Cloud Computing Articles",
+        seoDescription: "Expert insights on cloud technologies and services"
+      }
+    });
+
+    const securityCategory = await strapi.entityService.create("api::category.category", {
+      data: {
+        name: "Security",
+        slug: "security",
+        description: "Cybersecurity, data protection, and compliance articles",
+        color: "#EF4444",
+        isActive: true,
+        sortOrder: 2,
+        seoTitle: "Security Articles",
+        seoDescription: "Cybersecurity best practices and compliance guidance"
+      }
+    });
+
+    const consultingCategory = await strapi.entityService.create("api::category.category", {
+      data: {
+        name: "IT Consulting",
+        slug: "it-consulting",
+        description: "IT consulting services and business technology insights",
+        color: "#10B981",
+        isActive: true,
+        sortOrder: 3,
+        seoTitle: "IT Consulting Articles",
+        seoDescription: "IT consulting services and business technology insights"
+      }
+    });
+
+    // Create Tags
+    const awsTag = await strapi.entityService.create("api::tag.tag", {
+      data: {
+        name: "AWS",
+        slug: "aws",
+        description: "Amazon Web Services related content",
+        color: "#FF9900",
+        isActive: true,
+        usageCount: 0
+      }
+    });
+
+    const azureTag = await strapi.entityService.create("api::tag.tag", {
+      data: {
+        name: "Azure",
+        slug: "azure",
+        description: "Microsoft Azure related content",
+        color: "#0078D4",
+        isActive: true,
+        usageCount: 0
+      }
+    });
+
+    const securityTag = await strapi.entityService.create("api::tag.tag", {
+      data: {
+        name: "Security",
+        slug: "security",
+        description: "Security and compliance related content",
+        color: "#DC2626",
+        isActive: true,
+        usageCount: 0
+      }
+    });
+
+    const migrationTag = await strapi.entityService.create("api::tag.tag", {
+      data: {
+        name: "Migration",
+        slug: "migration",
+        description: "Cloud migration strategies and best practices",
+        color: "#7C3AED",
+        isActive: true,
+        usageCount: 0
+      }
+    });
+
+    // Create Sample Articles
+    const article1 = await strapi.entityService.create("api::article.article", {
+      data: {
+        title: "Getting Started with Cloud Migration: A Complete Guide",
+        slug: "getting-started-cloud-migration-complete-guide",
+        excerpt: "Learn the essential steps and best practices for migrating your business to the cloud successfully.",
+        content: "<h2>Introduction</h2><p>Cloud migration is a critical step in modernizing your IT infrastructure...</p><h2>Planning Your Migration</h2><p>Before starting your cloud migration journey...</p>",
+        status: "published",
+        publishedAt: new Date(),
+        readingTime: 8,
+        viewCount: 0,
+        isFeatured: true,
+        allowComments: true,
+        seoTitle: "Cloud Migration Guide: Complete Step-by-Step Tutorial",
+        seoDescription: "Learn how to migrate your business to the cloud with our comprehensive guide covering planning, execution, and best practices.",
+        seoKeywords: "cloud migration, AWS, Azure, cloud computing, IT consulting",
+        author: adminAuthor.id,
+        category: cloudCategory.id,
+        tags: [awsTag.id, migrationTag.id]
+      }
+    });
+
+    const article2 = await strapi.entityService.create("api::article.article", {
+      data: {
+        title: "Cybersecurity Best Practices for Small Businesses",
+        slug: "cybersecurity-best-practices-small-businesses",
+        excerpt: "Protect your small business from cyber threats with these essential security practices.",
+        content: "<h2>Why Cybersecurity Matters</h2><p>Small businesses are increasingly targeted by cybercriminals...</p><h2>Essential Security Measures</h2><p>Implement these key security practices...</p>",
+        status: "published",
+        publishedAt: new Date(),
+        readingTime: 6,
+        viewCount: 0,
+        isFeatured: false,
+        allowComments: true,
+        seoTitle: "Small Business Cybersecurity: Essential Protection Guide",
+        seoDescription: "Protect your small business from cyber threats with our comprehensive cybersecurity guide and best practices.",
+        seoKeywords: "cybersecurity, small business, security, data protection",
+        author: editorAuthor.id,
+        category: securityCategory.id,
+        tags: [securityTag.id]
+      }
+    });
+
+    const article3 = await strapi.entityService.create("api::article.article", {
+      data: {
+        title: "AWS vs Azure: Choosing the Right Cloud Platform",
+        slug: "aws-vs-azure-choosing-right-cloud-platform",
+        excerpt: "Compare AWS and Azure to make an informed decision for your cloud infrastructure needs.",
+        content: "<h2>Platform Comparison</h2><p>Both AWS and Azure offer comprehensive cloud services...</p><h2>Making Your Choice</h2><p>Consider these factors when choosing...</p>",
+        status: "published",
+        publishedAt: new Date(),
+        readingTime: 10,
+        viewCount: 0,
+        isFeatured: true,
+        allowComments: true,
+        seoTitle: "AWS vs Azure: Complete Cloud Platform Comparison Guide",
+        seoDescription: "Compare AWS and Azure cloud platforms to choose the best solution for your business needs and requirements.",
+        seoKeywords: "AWS, Azure, cloud comparison, cloud platform, cloud services",
+        author: adminAuthor.id,
+        category: cloudCategory.id,
+        tags: [awsTag.id, azureTag.id]
+      }
+    });
+
+    // Update author article counts
+    await strapi.entityService.update("api::author.author", adminAuthor.id, {
+      data: { articlesCount: 2 }
+    });
+
+    await strapi.entityService.update("api::author.author", editorAuthor.id, {
+      data: { articlesCount: 1 }
+    });
+
+    // Update tag usage counts
+    await strapi.entityService.update("api::tag.tag", awsTag.id, {
+      data: { usageCount: 2 }
+    });
+
+    await strapi.entityService.update("api::tag.tag", migrationTag.id, {
+      data: { usageCount: 1 }
+    });
+
+    await strapi.entityService.update("api::tag.tag", securityTag.id, {
+      data: { usageCount: 1 }
+    });
+
+    await strapi.entityService.update("api::tag.tag", azureTag.id, {
+      data: { usageCount: 1 }
+    });
+
+    console.log("✅ Sample blog data created successfully!");
+    console.log(`📝 Created ${3} articles, ${3} categories, ${4} tags, ${2} authors, ${2} user staff, ${2} user roles`);
+
+  } catch (error) {
+    console.log("⚠️ Error creating sample blog data:", error.message);
+  }
+}
