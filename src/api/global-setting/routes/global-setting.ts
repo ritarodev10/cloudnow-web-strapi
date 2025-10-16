@@ -3,7 +3,7 @@ export default {
     {
       method: 'GET',
       path: '/global-settings',
-      handler: 'global-settings.find',
+      handler: 'global-setting.find',
       config: {
         policies: [],
         middlewares: [],
@@ -12,7 +12,7 @@ export default {
     {
       method: 'GET',
       path: '/global-settings/:id',
-      handler: 'global-settings.findOne',
+      handler: 'global-setting.findOne',
       config: {
         policies: [],
         middlewares: [],
@@ -21,7 +21,7 @@ export default {
     {
       method: 'POST',
       path: '/global-settings',
-      handler: 'global-settings.create',
+      handler: 'global-setting.create',
       config: {
         policies: [],
         middlewares: [],
@@ -30,7 +30,7 @@ export default {
     {
       method: 'PUT',
       path: '/global-settings/:id',
-      handler: 'global-settings.update',
+      handler: 'global-setting.update',
       config: {
         policies: [],
         middlewares: [],
@@ -39,7 +39,7 @@ export default {
     {
       method: 'DELETE',
       path: '/global-settings/:id',
-      handler: 'global-settings.delete',
+      handler: 'global-setting.delete',
       config: {
         policies: [],
         middlewares: [],

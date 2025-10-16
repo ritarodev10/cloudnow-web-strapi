@@ -1,12 +1,12 @@
 export default async ({ strapi }) => {
   // Check if global settings already exist
-  const existingSettings = await strapi.entityService.findMany("api::global-setting.global-setting");
+  const existingSettings = await strapi.entityService.findMany("api::global-settings.global-settings");
 
   if (existingSettings.length === 0) {
     console.log("🚀 Creating initial CloudNow global settings...");
 
     // Create global settings with CloudNow data
-    await strapi.entityService.create("api::global-setting.global-setting", {
+    await strapi.entityService.create("api::global-settings.global-settings", {
       data: {
         siteName: "CloudNow",
         siteDescription:

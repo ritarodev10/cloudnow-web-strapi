@@ -1,6 +1,6 @@
 export default {
   async find(ctx) {
-    const entity = await strapi.entityService.findMany('api::global-settings.global-settings', {
+    const entity = await strapi.entityService.findMany('api::global-setting.global-setting', {
       ...ctx.query,
       populate: {
         header: {
@@ -96,7 +96,7 @@ export default {
 
   async findOne(ctx) {
     const { id } = ctx.params;
-    const entity = await strapi.entityService.findOne('api::global-settings.global-settings', id, {
+    const entity = await strapi.entityService.findOne('api::global-setting.global-setting', id, {
       ...ctx.query,
       populate: {
         header: {
@@ -191,7 +191,7 @@ export default {
   },
 
   async create(ctx) {
-    const entity = await strapi.entityService.create('api::global-settings.global-settings', {
+    const entity = await strapi.entityService.create('api::global-setting.global-setting', {
       data: ctx.request.body,
       ...ctx.query,
     });
@@ -200,7 +200,7 @@ export default {
 
   async update(ctx) {
     const { id } = ctx.params;
-    const entity = await strapi.entityService.update('api::global-settings.global-settings', id, {
+    const entity = await strapi.entityService.update('api::global-setting.global-setting', id, {
       data: ctx.request.body,
       ...ctx.query,
     });
@@ -209,7 +209,7 @@ export default {
 
   async delete(ctx) {
     const { id } = ctx.params;
-    const entity = await strapi.entityService.delete('api::global-settings.global-settings', id, {
+    const entity = await strapi.entityService.delete('api::global-setting.global-setting', id, {
       ...ctx.query,
     });
     return entity;
