@@ -93,13 +93,13 @@
     "tags": {
       "type": "relation",
       "relation": "manyToMany",
-      "target": "api::tag.tag",
-      "mappedBy": "articles"
+      "target": "api::tag.tag"
     },
     "relatedArticles": {
       "type": "relation",
       "relation": "manyToMany",
-      "target": "api::article.article"
+      "target": "api::article.article",
+      "mappedBy": "relatedArticles"
     }
   }
 }
