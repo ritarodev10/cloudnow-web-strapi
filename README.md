@@ -98,6 +98,192 @@ GET /api/global-settings
 
 ---
 
+## 🔐 Authentication API
+
+Strapi provides built-in JWT-based authentication for user management and dashboard access.
+
+### Login
+
+Authenticate users and receive JWT token.
+
+```http
+POST /api/auth/local
+```
+
+**Request Body:**
+
+```json
+{
+  "identifier": "admin@cloudnowservices.com",
+  "password": "your-password"
+}
+```
+
+**Response:**
+
+```json
+{
+  "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "id": 1,
+    "username": "admin",
+    "email": "admin@cloudnowservices.com",
+    "confirmed": true,
+    "blocked": false,
+    "role": {
+      "id": 1,
+      "name": "Admin",
+      "type": "admin_custom"
+    }
+  }
+}
+```
+
+### Register
+
+Create new user accounts.
+
+```http
+POST /api/auth/local/register
+```
+
+**Request Body:**
+
+```json
+{
+  "username": "newuser",
+  "email": "user@cloudnowservices.com",
+  "password": "password123"
+}
+```
+
+**Response:**
+
+```json
+{
+  "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "id": 2,
+    "username": "newuser",
+    "email": "user@cloudnowservices.com",
+    "confirmed": true,
+    "blocked": false,
+    "role": {
+      "id": 3,
+      "name": "Authenticated",
+      "type": "authenticated"
+    }
+  }
+}
+```
+
+### Forgot Password
+
+Request password reset email.
+
+```http
+POST /api/auth/forgot-password
+```
+
+**Request Body:**
+
+```json
+{
+  "email": "admin@cloudnowservices.com"
+}
+```
+
+**Response:**
+
+```json
+{
+  "ok": true
+}
+```
+
+### Reset Password
+
+Reset password using reset code.
+
+```http
+POST /api/auth/reset-password
+```
+
+**Request Body:**
+
+```json
+{
+  "code": "reset-code-from-email",
+  "password": "newpassword123",
+  "passwordConfirmation": "newpassword123"
+}
+```
+
+**Response:**
+
+```json
+{
+  "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "id": 1,
+    "username": "admin",
+    "email": "admin@cloudnowservices.com"
+  }
+}
+```
+
+### Authenticated Requests
+
+Use JWT token in Authorization header for protected endpoints.
+
+```http
+GET /api/articles
+Authorization: Bearer YOUR_JWT_TOKEN
+```
+
+### JavaScript Example
+
+```javascript
+// Login function
+const login = async (email, password) => {
+  const response = await fetch('http://localhost:1337/api/auth/local', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      identifier: email,
+      password: password
+    })
+  });
+  
+  const data = await response.json();
+  
+  if (data.jwt) {
+    localStorage.setItem('jwt', data.jwt);
+    localStorage.setItem('user', JSON.stringify(data.user));
+    return data;
+  }
+  
+  throw new Error(data.message);
+};
+
+// Authenticated request
+const getArticles = async () => {
+  const token = localStorage.getItem('jwt');
+  
+  const response = await fetch('http://localhost:1337/api/articles', {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
+  
+  return response.json();
+};
+```
+
+---
+
 ## 📝 Blog API
 
 ### Articles
@@ -480,6 +666,194 @@ GET /api/users-permissions/roles
   ]
 }
 ```
+
+---
+
+## 🧪 API Testing Guide
+
+### Quick Test Commands
+
+#### Test Authentication
+
+```bash
+# Login
+curl -X POST http://localhost:1337/api/auth/local \
+  -H "Content-Type: application/json" \
+  -d '{
+    "identifier": "admin@cloudnowservices.com",
+    "password": "your-password"
+  }'
+
+# Register new user
+curl -X POST http://localhost:1337/api/auth/local/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "testuser",
+    "email": "test@cloudnowservices.com",
+    "password": "password123"
+  }'
+```
+
+#### Test Public Endpoints
+
+```bash
+# Get all articles
+curl http://localhost:1337/api/articles?populate=*
+
+# Get all tags
+curl http://localhost:1337/api/tags
+
+# Get all categories
+curl http://localhost:1337/api/categories
+
+# Get all authors
+curl http://localhost:1337/api/authors?populate=*
+
+# Get global settings
+curl http://localhost:1337/api/global-settings
+```
+
+#### Test Authenticated Endpoints
+
+```bash
+# First, get JWT token from login
+JWT_TOKEN="your-jwt-token-here"
+
+# Get articles with authentication
+curl -H "Authorization: Bearer $JWT_TOKEN" \
+  http://localhost:1337/api/articles
+
+# Create new article (requires authentication)
+curl -X POST http://localhost:1337/api/articles \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $JWT_TOKEN" \
+  -d '{
+    "data": {
+      "title": "Test Article",
+      "slug": "test-article",
+      "excerpt": "This is a test article",
+      "content": "<p>This is test content</p>",
+      "status": "published",
+      "publishedAt": "2025-01-16T00:00:00.000Z",
+      "readingTime": 5,
+      "isFeatured": false,
+      "allowComments": true
+    }
+  }'
+```
+
+#### Test Filtering and Search
+
+```bash
+# Get featured articles
+curl "http://localhost:1337/api/articles?filters[isFeatured][\$eq]=true&populate=*"
+
+# Get articles by category
+curl "http://localhost:1337/api/articles?filters[category][slug][\$eq]=cloud-computing&populate=*"
+
+# Get articles by tag
+curl "http://localhost:1337/api/articles?filters[tags][slug][\$eq]=aws&populate=*"
+
+# Search articles by title
+curl "http://localhost:1337/api/articles?filters[title][\$containsi]=cloud&populate=*"
+
+# Get articles by author
+curl "http://localhost:1337/api/articles?filters[author][slug][\$eq]=john-smith&populate=*"
+
+# Sort articles by date
+curl "http://localhost:1337/api/articles?sort=publishedAt:desc&populate=*"
+
+# Pagination
+curl "http://localhost:1337/api/articles?pagination[page]=1&pagination[pageSize]=3&populate=*"
+```
+
+#### Test User Management
+
+```bash
+# Get all users (requires admin authentication)
+curl -H "Authorization: Bearer $JWT_TOKEN" \
+  http://localhost:1337/api/users
+
+# Get user roles
+curl -H "Authorization: Bearer $JWT_TOKEN" \
+  http://localhost:1337/api/users-permissions/roles
+
+# Get current user info
+curl -H "Authorization: Bearer $JWT_TOKEN" \
+  http://localhost:1337/api/users/me
+```
+
+### Browser Testing
+
+#### Direct Browser Access
+
+```
+# Public endpoints (no authentication required)
+http://localhost:1337/api/articles?populate=*
+http://localhost:1337/api/tags
+http://localhost:1337/api/categories
+http://localhost:1337/api/authors?populate=*
+http://localhost:1337/api/global-settings
+
+# Admin panel
+http://localhost:1337/admin
+```
+
+### Postman Collection
+
+Import these endpoints into Postman for easier testing:
+
+#### Environment Variables
+
+```
+BASE_URL: http://localhost:1337
+API_URL: {{BASE_URL}}/api
+JWT_TOKEN: (set after login)
+```
+
+#### Collection Endpoints
+
+1. **Authentication**
+   - `POST {{API_URL}}/auth/local` - Login
+   - `POST {{API_URL}}/auth/local/register` - Register
+   - `POST {{API_URL}}/auth/forgot-password` - Forgot Password
+   - `POST {{API_URL}}/auth/reset-password` - Reset Password
+
+2. **Articles**
+   - `GET {{API_URL}}/articles` - Get All Articles
+   - `GET {{API_URL}}/articles/{{id}}` - Get Single Article
+   - `POST {{API_URL}}/articles` - Create Article (Auth Required)
+   - `PUT {{API_URL}}/articles/{{id}}` - Update Article (Auth Required)
+   - `DELETE {{API_URL}}/articles/{{id}}` - Delete Article (Auth Required)
+
+3. **Tags**
+   - `GET {{API_URL}}/tags` - Get All Tags
+   - `GET {{API_URL}}/tags/{{id}}` - Get Single Tag
+   - `POST {{API_URL}}/tags` - Create Tag (Auth Required)
+
+4. **Categories**
+   - `GET {{API_URL}}/categories` - Get All Categories
+   - `GET {{API_URL}}/categories/{{id}}` - Get Single Category
+   - `POST {{API_URL}}/categories` - Create Category (Auth Required)
+
+5. **Authors**
+   - `GET {{API_URL}}/authors` - Get All Authors
+   - `GET {{API_URL}}/authors/{{id}}` - Get Single Author
+   - `POST {{API_URL}}/authors` - Create Author (Auth Required)
+
+6. **Global Settings**
+   - `GET {{API_URL}}/global-settings` - Get Global Settings
+   - `PUT {{API_URL}}/global-settings` - Update Global Settings (Auth Required)
+
+### Expected Sample Data
+
+After running the bootstrap, you should have:
+
+- **6 Tags**: AWS, Azure, Security, Migration, DevOps, Cloud Computing
+- **3 Authors**: John Smith, Sarah Johnson, Mike Chen
+- **5 Articles**: Cloud Migration Guide, Cybersecurity Best Practices, AWS vs Azure, DevOps Best Practices, Cost Optimization
+- **3 Categories**: Cloud Computing, Security, IT Consulting
+- **1 Global Setting**: Complete CloudNow site configuration
 
 ---
 
