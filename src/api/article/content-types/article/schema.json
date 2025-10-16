@@ -94,12 +94,6 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::tag.tag"
-    },
-    "relatedArticles": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::article.article",
-      "mappedBy": "relatedArticles"
     }
   }
 }
