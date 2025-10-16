@@ -390,76 +390,8 @@ async function createSampleBlogData(strapi) {
 
     console.log("🚀 Creating sample blog data...");
 
-    // Get existing roles instead of creating custom ones
-    const authenticatedRole = await strapi.query('plugin::users-permissions.role').findOne({
-      where: { type: 'authenticated' }
-    });
-
-    if (!authenticatedRole) {
-      console.log("⚠️ Authenticated role not found, skipping user creation");
-      return;
-    }
-
-    // Create Users using Strapi's built-in user system
-    const adminUser = await strapi.query('plugin::users-permissions.user').create({
-      data: {
-        username: "admin",
-        email: "admin@cloudnowservices.com",
-        password: "CloudNow2025!",
-        confirmed: true,
-        blocked: false,
-        role: authenticatedRole.id
-      }
-    });
-
-    const editorUser = await strapi.query('plugin::users-permissions.user').create({
-      data: {
-        username: "editor",
-        email: "editor@cloudnowservices.com",
-        password: "Editor2025!",
-        confirmed: true,
-        blocked: false,
-        role: authenticatedRole.id
-      }
-    });
-
-    // Create Authors linked to Strapi users
-    const adminAuthor = await strapi.entityService.create("api::author.author", {
-      data: {
-        firstName: "Admin",
-        lastName: "User",
-        slug: "admin-user",
-        bio: "System administrator and technical writer for CloudNow.",
-        email: "admin@cloudnowservices.com",
-        website: "https://cloudnowservices.com",
-        socialLinks: {
-          linkedin: "https://linkedin.com/in/admin-cloudnow",
-          twitter: "https://twitter.com/cloudnow_admin"
-        },
-        isActive: true,
-        joinedAt: new Date(),
-        articlesCount: 0,
-        user: adminUser.id
-      }
-    });
-
-    const editorAuthor = await strapi.entityService.create("api::author.author", {
-      data: {
-        firstName: "Content",
-        lastName: "Editor",
-        slug: "content-editor",
-        bio: "Content manager and technical writer specializing in cloud technologies.",
-        email: "editor@cloudnowservices.com",
-        website: "https://cloudnowservices.com",
-        socialLinks: {
-          linkedin: "https://linkedin.com/in/editor-cloudnow"
-        },
-        isActive: true,
-        joinedAt: new Date(),
-        articlesCount: 0,
-        user: editorUser.id
-      }
-    });
+    // Skip user creation for now - just create tags and articles
+    console.log("📝 Creating tags and articles without user links...");
 
     // Create Categories
     const cloudCategory = await strapi.entityService.create("api::category.category", {
@@ -546,7 +478,7 @@ async function createSampleBlogData(strapi) {
       }
     });
 
-    // Create Sample Articles
+    // Create Sample Articles (without author links for now)
     const article1 = await strapi.entityService.create("api::article.article", {
       data: {
         title: "Getting Started with Cloud Migration: A Complete Guide",
@@ -562,7 +494,6 @@ async function createSampleBlogData(strapi) {
         seoTitle: "Cloud Migration Guide: Complete Step-by-Step Tutorial",
         seoDescription: "Learn how to migrate your business to the cloud with our comprehensive guide covering planning, execution, and best practices.",
         seoKeywords: "cloud migration, AWS, Azure, cloud computing, IT consulting",
-        author: adminAuthor.id,
         category: cloudCategory.id,
         tags: [awsTag.id, migrationTag.id]
       }
@@ -583,7 +514,6 @@ async function createSampleBlogData(strapi) {
         seoTitle: "Small Business Cybersecurity: Essential Protection Guide",
         seoDescription: "Protect your small business from cyber threats with our comprehensive cybersecurity guide and best practices.",
         seoKeywords: "cybersecurity, small business, security, data protection",
-        author: editorAuthor.id,
         category: securityCategory.id,
         tags: [securityTag.id]
       }
@@ -604,19 +534,9 @@ async function createSampleBlogData(strapi) {
         seoTitle: "AWS vs Azure: Complete Cloud Platform Comparison Guide",
         seoDescription: "Compare AWS and Azure cloud platforms to choose the best solution for your business needs and requirements.",
         seoKeywords: "AWS, Azure, cloud comparison, cloud platform, cloud services",
-        author: adminAuthor.id,
         category: cloudCategory.id,
         tags: [awsTag.id, azureTag.id]
       }
-    });
-
-    // Update author article counts
-    await strapi.entityService.update("api::author.author", adminAuthor.id, {
-      data: { articlesCount: 2 }
-    });
-
-    await strapi.entityService.update("api::author.author", editorAuthor.id, {
-      data: { articlesCount: 1 }
     });
 
     // Update tag usage counts
@@ -637,10 +557,11 @@ async function createSampleBlogData(strapi) {
     });
 
     console.log("✅ Sample blog data created successfully!");
-    console.log(`📝 Created ${3} articles, ${3} categories, ${4} tags, ${2} authors, ${2} users`);
+    console.log(`📝 Created ${3} articles, ${3} categories, ${4} tags`);
 
   } catch (error) {
     console.log("⚠️ Error creating sample blog data:", error.message);
     console.log("📋 Error details:", error);
+    console.log("🔍 Full error object:", JSON.stringify(error, null, 2));
   }
 }
