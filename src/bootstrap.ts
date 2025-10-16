@@ -393,45 +393,13 @@ async function createSampleBlogData(strapi) {
     // Skip user creation for now - just create tags and articles
     console.log("📝 Creating tags and articles without user links...");
 
-    // Create Categories
-    const cloudCategory = await strapi.entityService.create("api::category.category", {
-      data: {
-        name: "Cloud Computing",
-        slug: "cloud-computing",
-        description: "Articles about cloud technologies, services, and best practices",
-        color: "#3B82F6",
-        isActive: true,
-        sortOrder: 1,
-        seoTitle: "Cloud Computing Articles",
-        seoDescription: "Expert insights on cloud technologies and services"
-      }
-    });
+    // Get existing categories (they already exist)
+    const existingCategories = await strapi.entityService.findMany("api::category.category");
+    const cloudCategory = existingCategories.find(cat => cat.slug === "cloud-computing");
+    const securityCategory = existingCategories.find(cat => cat.slug === "security");
+    const consultingCategory = existingCategories.find(cat => cat.slug === "it-consulting");
 
-    const securityCategory = await strapi.entityService.create("api::category.category", {
-      data: {
-        name: "Security",
-        slug: "security",
-        description: "Cybersecurity, data protection, and compliance articles",
-        color: "#EF4444",
-        isActive: true,
-        sortOrder: 2,
-        seoTitle: "Security Articles",
-        seoDescription: "Cybersecurity best practices and compliance guidance"
-      }
-    });
-
-    const consultingCategory = await strapi.entityService.create("api::category.category", {
-      data: {
-        name: "IT Consulting",
-        slug: "it-consulting",
-        description: "IT consulting services and business technology insights",
-        color: "#10B981",
-        isActive: true,
-        sortOrder: 3,
-        seoTitle: "IT Consulting Articles",
-        seoDescription: "IT consulting services and business technology insights"
-      }
-    });
+    console.log(`📂 Found ${existingCategories.length} existing categories`);
 
     // Create Tags
     const awsTag = await strapi.entityService.create("api::tag.tag", {
